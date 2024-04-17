@@ -1,6 +1,8 @@
 import datetime
 import os.path
-import openai
+
+import tiktoken
+
 from sys import argv
 from functools import partial
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog, QSizePolicy, QDoubleSpinBox
@@ -32,25 +34,34 @@ class GptWorker(QThread):
     model = ''
 
     def run(self):
-        answer_str = get_gpt_answer(self.message, self.message_sys, self.temperature, self.top_p,self.model)  # 调用你的函数获取答案
+        answer_str = get_gpt_answer(self.message, self.message_sys, self.temperature, self.top_p,
+                                    self.model)  # 调用你的函数获取答案
         self.answerAvailable.emit(answer_str)  # 发送信号
 
 
-def get_gpt_answer(message, message_sys, temperature, top_p,model):
+def get_gpt_answer(message, message_sys, temperature, top_p, model):
     try:
+        full_message = [message_sys] + message
         response = client.chat.completions.create(
             model=model,
-            messages=[message_sys] + message,
-            temperature=0.1,
-            max_tokens=4000,
-            top_p=0.1,
+            messages=full_message,
+            temperature=temperature,
+            top_p=top_p,
             frequency_penalty=0,
             presence_penalty=0,
             stop=None
         )
-        print(temperature)
-        print(top_p)
         answer_str = response.choices[0].message.content
+        print(response.usage.prompt_tokens)
+        print(response.usage.completion_tokens)
+        print(response.usage.total_tokens)
+        token_count = num_tokens_from_messages(full_message)
+        print('-----')
+        print(token_count)
+
+
+
+
     except Exception as e:
         answer_str = '请求回答时出现错误，错误内容为:\n' + str(e)
     return answer_str
@@ -68,6 +79,26 @@ client = AzureOpenAI(
     api_key=api_key,
     api_version="2023-05-15"
 )
+
+
+def num_tokens_from_messages(messages):
+    """Return the number of tokens used by a list of messages."""
+
+    encoding = tiktoken.get_encoding("cl100k_base")
+
+    tokens_per_message = 3
+    tokens_per_name = 1
+
+    num_tokens = 0
+    for message in messages:
+        num_tokens += tokens_per_message
+        for key, value in message.items():
+            num_tokens += len(encoding.encode(value))
+            if key == "name":
+                num_tokens += tokens_per_name
+    num_tokens += 3  # every reply is primed with <|start|>assistant<|message|>
+    return num_tokens
+
 
 worker = GptWorker()
 
@@ -211,8 +242,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.temp_vbox.setValue(float(setting.value('temperature')))
         self.topp_vbox.setValue(float(setting.value('topp')))
 
-
-
     def edit_dialog(self):
         if self.dialog_edit.isReadOnly():
             self.dialog_edit.setReadOnly(False)
@@ -243,7 +272,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
             # 保存日志
             self.save_log()
-
 
     def record_to_dialog(self, msg, role, save=True):
 
