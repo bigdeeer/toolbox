@@ -59,9 +59,6 @@ def get_gpt_answer(message, message_sys, temperature, top_p, model):
         print('-----')
         print(token_count)
 
-
-
-
     except Exception as e:
         answer_str = '请求回答时出现错误，错误内容为:\n' + str(e)
     return answer_str
