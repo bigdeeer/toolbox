@@ -224,7 +224,14 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.log_layout_w)
 
-        self.dialog_edit = QTextEdit(self.centralwidget)
+        self.dialog_layout_w = QWidget(self.centralwidget)
+        self.dialog_layout_w.setObjectName(u"dialog_layout_w")
+        self.dialog_layout_w.setStyleSheet(u"border:0px;")
+        self.horizontalLayout_3 = QHBoxLayout(self.dialog_layout_w)
+        self.horizontalLayout_3.setSpacing(0)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.dialog_edit = QTextEdit(self.dialog_layout_w)
         self.dialog_edit.setObjectName(u"dialog_edit")
         sizePolicy2.setHeightForWidth(self.dialog_edit.sizePolicy().hasHeightForWidth())
         self.dialog_edit.setSizePolicy(sizePolicy2)
@@ -235,7 +242,16 @@ class Ui_MainWindow(object):
         self.dialog_edit.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.dialog_edit.setReadOnly(True)
 
-        self.verticalLayout.addWidget(self.dialog_edit)
+        self.horizontalLayout_3.addWidget(self.dialog_edit)
+
+        self.token_disp = QTextEdit(self.dialog_layout_w)
+        self.token_disp.setObjectName(u"token_disp")
+        self.token_disp.setMaximumSize(QSize(100, 16777215))
+
+        self.horizontalLayout_3.addWidget(self.token_disp)
+
+
+        self.verticalLayout.addWidget(self.dialog_layout_w)
 
         self.system_layout_w = QWidget(self.centralwidget)
         self.system_layout_w.setObjectName(u"system_layout_w")

@@ -190,7 +190,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
     def load_style(self):
         self.setStyleSheet(WINDOW_STYLE)
-        box_list = [self.log_name_edit, self.dialog_edit, self.system_edit, self.input_edit]
+        box_list = [self.log_name_edit, self.dialog_edit, self.system_edit, self.input_edit,self.token_disp]
         for box in box_list:
             box.setStyleSheet(DEFAULT_BOX_STYLE)
 
@@ -407,6 +407,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.system_layout_w.layout().setSpacing(self.gap_1)
         self.input_layout_w.layout().setSpacing(self.gap_1)
         self.button_layout_w.layout().setSpacing(self.gap_1)
+        self.dialog_layout_w.layout().setSpacing(self.gap_1)
 
         self.log_layout_w.setFixedHeight(self.unit)
         change_size(self.input_layout_w, height=self.unit * 3 + 4)
@@ -431,14 +432,14 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         parent = widget.parent()
         if checked:
             self.old_box_height = parent.height()
-            self.old_dialog_height = self.dialog_edit.height()
-            change_size(self.dialog_edit, height=self.unit * 2)
+            self.old_dialog_height = self.dialog_layout_w.height()
+            change_size(self.dialog_layout_w, height=self.unit * 2)
             change_size(parent, height=self.height())
 
 
 
         else:
-            change_size(self.dialog_edit, height=self.old_dialog_height)
+            change_size(self.dialog_layout_w, height=self.old_dialog_height)
             change_size(parent, height=self.old_box_height)
 
         widget.setFocus()
