@@ -226,11 +226,8 @@ class Ui_MainWindow(object):
 
         self.dialog_edit = QTextEdit(self.centralwidget)
         self.dialog_edit.setObjectName(u"dialog_edit")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.dialog_edit.sizePolicy().hasHeightForWidth())
-        self.dialog_edit.setSizePolicy(sizePolicy5)
+        sizePolicy2.setHeightForWidth(self.dialog_edit.sizePolicy().hasHeightForWidth())
+        self.dialog_edit.setSizePolicy(sizePolicy2)
         self.dialog_edit.setFont(font1)
         self.dialog_edit.setStyleSheet(u"background-color:rgb(215,221,215);\n"
 "border:1px solid rgb(90,90,90);\n"
@@ -242,11 +239,8 @@ class Ui_MainWindow(object):
 
         self.system_layout_w = QWidget(self.centralwidget)
         self.system_layout_w.setObjectName(u"system_layout_w")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.system_layout_w.sizePolicy().hasHeightForWidth())
-        self.system_layout_w.setSizePolicy(sizePolicy6)
+        sizePolicy2.setHeightForWidth(self.system_layout_w.sizePolicy().hasHeightForWidth())
+        self.system_layout_w.setSizePolicy(sizePolicy2)
         self.system_layout_w.setStyleSheet(u"border:0px;")
         self.horizontalLayout = QHBoxLayout(self.system_layout_w)
         self.horizontalLayout.setSpacing(0)
@@ -254,6 +248,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.system_edit = QPlainTextEdit(self.system_layout_w)
         self.system_edit.setObjectName(u"system_edit")
+        sizePolicy2.setHeightForWidth(self.system_edit.sizePolicy().hasHeightForWidth())
+        self.system_edit.setSizePolicy(sizePolicy2)
         self.system_edit.setStyleSheet(u"background-color:rgb(215,221,215);\n"
 "border:1px solid rgb(90,90,90);\n"
 "border-radius:4px;")
@@ -262,16 +258,19 @@ class Ui_MainWindow(object):
 
         self.verticalWidget = QWidget(self.system_layout_w)
         self.verticalWidget.setObjectName(u"verticalWidget")
-        sizePolicy6.setHeightForWidth(self.verticalWidget.sizePolicy().hasHeightForWidth())
-        self.verticalWidget.setSizePolicy(sizePolicy6)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.verticalWidget.sizePolicy().hasHeightForWidth())
+        self.verticalWidget.setSizePolicy(sizePolicy5)
         self.verticalLayout_3 = QVBoxLayout(self.verticalWidget)
         self.verticalLayout_3.setSpacing(0)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.system_size_btn = QPushButton(self.verticalWidget)
         self.system_size_btn.setObjectName(u"system_size_btn")
-        sizePolicy4.setHeightForWidth(self.system_size_btn.sizePolicy().hasHeightForWidth())
-        self.system_size_btn.setSizePolicy(sizePolicy4)
+        sizePolicy.setHeightForWidth(self.system_size_btn.sizePolicy().hasHeightForWidth())
+        self.system_size_btn.setSizePolicy(sizePolicy)
         self.system_size_btn.setFont(font2)
         self.system_size_btn.setStyleSheet(u"QPushButton:checked\n"
 "{\n"
@@ -312,6 +311,9 @@ class Ui_MainWindow(object):
 
         self.input_layout_w = QWidget(self.centralwidget)
         self.input_layout_w.setObjectName(u"input_layout_w")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Ignored, QSizePolicy.Expanding)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
         sizePolicy6.setHeightForWidth(self.input_layout_w.sizePolicy().hasHeightForWidth())
         self.input_layout_w.setSizePolicy(sizePolicy6)
         self.input_layout_w.setStyleSheet(u"border:0px")
@@ -321,6 +323,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.input_edit = QPlainTextEdit(self.input_layout_w)
         self.input_edit.setObjectName(u"input_edit")
+        sizePolicy2.setHeightForWidth(self.input_edit.sizePolicy().hasHeightForWidth())
+        self.input_edit.setSizePolicy(sizePolicy2)
         self.input_edit.setFont(font)
         self.input_edit.setStyleSheet(u"background-color:rgb(220,225,230);\n"
 "border:1px solid rgb(90,90,90);\n"
@@ -339,8 +343,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.input_size_btn = QPushButton(self.button_layout_w)
         self.input_size_btn.setObjectName(u"input_size_btn")
-        sizePolicy2.setHeightForWidth(self.input_size_btn.sizePolicy().hasHeightForWidth())
-        self.input_size_btn.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.input_size_btn.sizePolicy().hasHeightForWidth())
+        self.input_size_btn.setSizePolicy(sizePolicy)
         self.input_size_btn.setFont(font2)
         self.input_size_btn.setStyleSheet(u"QPushButton:checked\n"
 "{\n"
@@ -369,8 +373,8 @@ class Ui_MainWindow(object):
 
         self.send_btn = QPushButton(self.button_layout_w)
         self.send_btn.setObjectName(u"send_btn")
-        sizePolicy2.setHeightForWidth(self.send_btn.sizePolicy().hasHeightForWidth())
-        self.send_btn.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.send_btn.sizePolicy().hasHeightForWidth())
+        self.send_btn.setSizePolicy(sizePolicy)
         self.send_btn.setFont(font2)
         self.send_btn.setStyleSheet(u"QPushButton:checked\n"
 "{\n"
@@ -400,8 +404,8 @@ class Ui_MainWindow(object):
 
         self.clear_btn = QPushButton(self.button_layout_w)
         self.clear_btn.setObjectName(u"clear_btn")
-        sizePolicy2.setHeightForWidth(self.clear_btn.sizePolicy().hasHeightForWidth())
-        self.clear_btn.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.clear_btn.sizePolicy().hasHeightForWidth())
+        self.clear_btn.setSizePolicy(sizePolicy)
         self.clear_btn.setFont(font2)
         self.clear_btn.setStyleSheet(u"QPushButton:checked\n"
 "{\n"

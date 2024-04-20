@@ -5,7 +5,7 @@ import tiktoken
 
 from sys import argv
 from functools import partial
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog, QSizePolicy, QDoubleSpinBox
+from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog, QSizePolicy, QDoubleSpinBox, QWidget
 from PySide6.QtCore import QSettings, QThread, Signal, Qt, QSize, QPoint
 from PySide6.QtGui import QPainter, QIcon, QShortcut, QKeySequence, QTextCursor, QImage, QColor, QPixmap
 from openai.lib.azure import AzureOpenAI
@@ -120,6 +120,13 @@ icon_dict = {"model_btn": [{'state': QIcon.State.On, 'file': "icon/gpt4.png"},
              }
 
 
+def change_size(widget: QWidget, width=-1, height=-1):
+    if width != -1:
+        widget.setMaximumWidth(width)
+    if height != -1:
+        widget.setMaximumHeight(height)
+
+
 class ChatForm(QMainWindow, Ui_MainWindow):
     dialog = {}
     unit = 0
@@ -142,12 +149,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.setWindowTitle('Azure-openAI-GPT创新研发部')
         self.setWindowIcon(QIcon('icon\logo.png'))
 
-        # self.min_btn.hide()
-        # self.max_btn.hide()
-        # self.close_btn.hide()
-
         self.load_settings()  # 读取布局参数
-        self.load_layput_size()  # 修改布局尺寸
 
         # 根据历史纪录读取窗体位置和大小
         geo = self.geometry()
@@ -166,10 +168,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.system_size_btn.clicked.connect(partial(self.size_btn_switched, 'system'))
 
         self.pin_btn.clicked.connect(self.pin_on_top)
-        # self.frame_btn.clicked.connect(self.frame_window)
-        # self.min_btn.clicked.connect(self.min_window)
-        # self.max_btn.clicked.connect(self.max_window)
-        # self.close_btn.clicked.connect(self.close_window)
 
         self.system_edit.textChanged.connect(self.sys_changed)
 
@@ -183,16 +181,12 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         # 开启进程
         worker.answerAvailable.connect(self.receive_answer)  # updateUI是一个更新UI的函数
 
+        self.load_layput_size()  # 修改布局尺寸
+
         self.init()
 
         # colorx = QColorDialog.getColor(0, None, "Select Color")
         # print(colorx)
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.setRenderHint(QPainter.Antialiasing)
-        rounded_rect = self.rect().adjusted(0, 0, -1, -1)
-        painter.drawRoundedRect(rounded_rect, 10, 10)
 
     def load_style(self):
         self.setStyleSheet(WINDOW_STYLE)
@@ -415,7 +409,8 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.button_layout_w.layout().setSpacing(self.gap_1)
 
         self.log_layout_w.setFixedHeight(self.unit)
-
+        change_size(self.input_layout_w, height=self.unit * 3 + 4)
+        change_size(self.system_layout_w, height=self.unit)
 
     def size_btn_switched(self, button_name, checked=None):  # 问题框尺寸改变
         if button_name == 'input':
@@ -433,11 +428,18 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.widget_size_update(widget, checked)
 
     def widget_size_update(self, widget, checked):
+        parent = widget.parent()
         if checked:
+            self.old_box_height = parent.height()
             self.old_dialog_height = self.dialog_edit.height()
-            self.dialog_edit.setFixedHeight(self.unit * 2)
+            change_size(self.dialog_edit, height=self.unit * 2)
+            change_size(parent, height=self.height())
+
+
+
         else:
-            self.dialog_edit.setFixedHeight(self.old_dialog_height)
+            change_size(self.dialog_edit, height=self.old_dialog_height)
+            change_size(parent, height=self.old_box_height)
 
         widget.setFocus()
         widget.moveCursor(QTextCursor.End, QTextCursor.MoveAnchor)
@@ -451,41 +453,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
             self.setWindowFlags(self.windowFlags() &
                                 ~Qt.WindowType.WindowStaysOnTopHint)
         self.show()
-
-    def frame_window(self):
-        btn = self.frame_btn
-        if btn.isChecked():
-            geo = self.geometry()
-            bottom = geo.bottom()
-            self.setWindowFlags(self.windowFlags() &
-                                ~Qt.WindowType.FramelessWindowHint)
-            self.min_btn.hide()
-            self.max_btn.hide()
-            self.close_btn.hide()
-            geo.setBottom(bottom)
-            self.setGeometry(geo)
-        else:
-            geo = self.geometry()
-            bottom = geo.bottom()
-            self.setWindowFlags(self.windowFlags() |
-                                Qt.WindowType.FramelessWindowHint)
-            self.min_btn.show()
-            self.max_btn.show()
-            self.close_btn.show()
-            geo.setBottom(bottom)
-            self.setGeometry(geo)
-        self.show()
-
-    def min_window(self):
-        self.showMinimized()
-
-    def max_window(self):
-        btn = self.max_btn
-        if btn.isChecked():
-            self.geo = self.geometry()
-            self.setGeometry(self.screen().availableGeometry())
-        else:
-            self.setGeometry(self.geo)
 
 
 if __name__ == '__main__':
