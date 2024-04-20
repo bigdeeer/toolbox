@@ -44,12 +44,10 @@ CELL_CSS_END = "</pre></td></tr></table>"
 WINDOW_STYLE = f"""
 background-color:{DEFAULT_BG};
 border:1px solid {BORDER_COLOR};
-border-radius:4px;
 """
 
 DEFAULT_BOX_STYLE = f"""background-color:{DEFAULT_BG};
                 border:1px solid {BORDER_COLOR};
-                border-radius:4px;
                 color:white"""
 
 BUTTON_STYLE = f"""
@@ -61,7 +59,6 @@ QPushButton
 {{
 background-color:{DEFAULT_BG};
 border:1px solid {BORDER_COLOR};
-border-radius:4px;
 }}
 QPushButton:hover
 {{
@@ -76,6 +73,5 @@ background-color: {PRESSED_BG};
 VBOX_STYLE =  f"""
 background-color:{DEFAULT_BG};
 border:1px solid {BORDER_COLOR};
-border-radius:4px;
 color: white;
 """

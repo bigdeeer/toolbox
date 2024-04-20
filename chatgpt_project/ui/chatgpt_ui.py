@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1056, 941)
+        MainWindow.resize(975, 743)
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -187,40 +187,6 @@ class Ui_MainWindow(object):
 
         self.log_layout.addWidget(self.load_btn)
 
-        self.frame_btn = QPushButton(self.log_layout_w)
-        self.frame_btn.setObjectName(u"frame_btn")
-        sizePolicy4.setHeightForWidth(self.frame_btn.sizePolicy().hasHeightForWidth())
-        self.frame_btn.setSizePolicy(sizePolicy4)
-        self.frame_btn.setMinimumSize(QSize(40, 0))
-        self.frame_btn.setFont(font2)
-        self.frame_btn.setStyleSheet(u"QPushButton:checked\n"
-"{\n"
-"background-color: rgb(165,180,165)\n"
-"}\n"
-"\n"
-"QPushButton\n"
-"{\n"
-"background-color:rgb(215,221,215);\n"
-"border:1px solid rgb(90,90,90);\n"
-"border-radius:4px;\n"
-"}\n"
-"QPushButton:hover\n"
-"{\n"
-"background-color: rgb(238,232,210)\n"
-"}\n"
-"QPushButton:pressed\n"
-"{\n"
-"background-color: rgb(105,158,105)\n"
-"}")
-        icon2 = QIcon()
-        icon2.addFile(u"icon/frame.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.frame_btn.setIcon(icon2)
-        self.frame_btn.setIconSize(QSize(30, 30))
-        self.frame_btn.setCheckable(True)
-        self.frame_btn.setChecked(True)
-
-        self.log_layout.addWidget(self.frame_btn)
-
         self.pin_btn = QPushButton(self.log_layout_w)
         self.pin_btn.setObjectName(u"pin_btn")
         sizePolicy4.setHeightForWidth(self.pin_btn.sizePolicy().hasHeightForWidth())
@@ -246,119 +212,25 @@ class Ui_MainWindow(object):
 "{\n"
 "background-color: rgb(105,158,105)\n"
 "}")
-        icon3 = QIcon()
-        icon3.addFile(u"icon/pinoff.png", QSize(), QIcon.Normal, QIcon.Off)
-        icon3.addFile(u"icon/pin.png", QSize(), QIcon.Normal, QIcon.On)
-        self.pin_btn.setIcon(icon3)
+        icon2 = QIcon()
+        icon2.addFile(u"icon/pinoff.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(u"icon/pin.png", QSize(), QIcon.Normal, QIcon.On)
+        self.pin_btn.setIcon(icon2)
         self.pin_btn.setIconSize(QSize(30, 30))
         self.pin_btn.setCheckable(True)
 
         self.log_layout.addWidget(self.pin_btn)
-
-        self.min_btn = QPushButton(self.log_layout_w)
-        self.min_btn.setObjectName(u"min_btn")
-        sizePolicy4.setHeightForWidth(self.min_btn.sizePolicy().hasHeightForWidth())
-        self.min_btn.setSizePolicy(sizePolicy4)
-        self.min_btn.setMinimumSize(QSize(40, 0))
-        self.min_btn.setFont(font2)
-        self.min_btn.setStyleSheet(u"QPushButton:checked\n"
-"{\n"
-"background-color: rgb(165,180,165)\n"
-"}\n"
-"\n"
-"QPushButton\n"
-"{\n"
-"background-color:rgb(215,221,215);\n"
-"border:1px solid rgb(90,90,90);\n"
-"border-radius:4px;\n"
-"}\n"
-"QPushButton:hover\n"
-"{\n"
-"background-color: rgb(238,232,210)\n"
-"}\n"
-"QPushButton:pressed\n"
-"{\n"
-"background-color: rgb(105,158,105)\n"
-"}")
-        icon4 = QIcon()
-        icon4.addFile(u"icon/min.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.min_btn.setIcon(icon4)
-        self.min_btn.setIconSize(QSize(30, 30))
-
-        self.log_layout.addWidget(self.min_btn)
-
-        self.max_btn = QPushButton(self.log_layout_w)
-        self.max_btn.setObjectName(u"max_btn")
-        sizePolicy4.setHeightForWidth(self.max_btn.sizePolicy().hasHeightForWidth())
-        self.max_btn.setSizePolicy(sizePolicy4)
-        self.max_btn.setMinimumSize(QSize(40, 0))
-        self.max_btn.setFont(font2)
-        self.max_btn.setStyleSheet(u"QPushButton:checked\n"
-"{\n"
-"background-color: rgb(165,180,165)\n"
-"}\n"
-"\n"
-"QPushButton\n"
-"{\n"
-"background-color:rgb(215,221,215);\n"
-"border:1px solid rgb(90,90,90);\n"
-"border-radius:4px;\n"
-"}\n"
-"QPushButton:hover\n"
-"{\n"
-"background-color: rgb(238,232,210)\n"
-"}\n"
-"QPushButton:pressed\n"
-"{\n"
-"background-color: rgb(105,158,105)\n"
-"}")
-        icon5 = QIcon()
-        icon5.addFile(u"icon/max.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.max_btn.setIcon(icon5)
-        self.max_btn.setIconSize(QSize(30, 30))
-        self.max_btn.setCheckable(True)
-
-        self.log_layout.addWidget(self.max_btn)
-
-        self.close_btn = QPushButton(self.log_layout_w)
-        self.close_btn.setObjectName(u"close_btn")
-        sizePolicy4.setHeightForWidth(self.close_btn.sizePolicy().hasHeightForWidth())
-        self.close_btn.setSizePolicy(sizePolicy4)
-        self.close_btn.setMinimumSize(QSize(40, 0))
-        self.close_btn.setFont(font2)
-        self.close_btn.setStyleSheet(u"QPushButton:checked\n"
-"{\n"
-"background-color: rgb(165,180,165)\n"
-"}\n"
-"\n"
-"QPushButton\n"
-"{\n"
-"background-color:rgb(215,221,215);\n"
-"border:1px solid rgb(90,90,90);\n"
-"border-radius:4px;\n"
-"}\n"
-"QPushButton:hover\n"
-"{\n"
-"background-color: rgb(238,232,210)\n"
-"}\n"
-"QPushButton:pressed\n"
-"{\n"
-"background-color: rgb(105,158,105)\n"
-"}")
-        icon6 = QIcon()
-        icon6.addFile(u"icon/close.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.close_btn.setIcon(icon6)
-        self.close_btn.setIconSize(QSize(30, 30))
-
-        self.log_layout.addWidget(self.close_btn)
 
 
         self.verticalLayout.addWidget(self.log_layout_w)
 
         self.dialog_edit = QTextEdit(self.centralwidget)
         self.dialog_edit.setObjectName(u"dialog_edit")
-        sizePolicy2.setHeightForWidth(self.dialog_edit.sizePolicy().hasHeightForWidth())
-        self.dialog_edit.setSizePolicy(sizePolicy2)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.dialog_edit.sizePolicy().hasHeightForWidth())
+        self.dialog_edit.setSizePolicy(sizePolicy5)
         self.dialog_edit.setFont(font1)
         self.dialog_edit.setStyleSheet(u"background-color:rgb(215,221,215);\n"
 "border:1px solid rgb(90,90,90);\n"
@@ -370,8 +242,11 @@ class Ui_MainWindow(object):
 
         self.system_layout_w = QWidget(self.centralwidget)
         self.system_layout_w.setObjectName(u"system_layout_w")
-        sizePolicy1.setHeightForWidth(self.system_layout_w.sizePolicy().hasHeightForWidth())
-        self.system_layout_w.setSizePolicy(sizePolicy1)
+        sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.system_layout_w.sizePolicy().hasHeightForWidth())
+        self.system_layout_w.setSizePolicy(sizePolicy6)
         self.system_layout_w.setStyleSheet(u"border:0px;")
         self.horizontalLayout = QHBoxLayout(self.system_layout_w)
         self.horizontalLayout.setSpacing(0)
@@ -385,11 +260,15 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.system_edit)
 
-        self.system_space = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout.addItem(self.system_space)
-
-        self.system_size_btn = QPushButton(self.system_layout_w)
+        self.verticalWidget = QWidget(self.system_layout_w)
+        self.verticalWidget.setObjectName(u"verticalWidget")
+        sizePolicy6.setHeightForWidth(self.verticalWidget.sizePolicy().hasHeightForWidth())
+        self.verticalWidget.setSizePolicy(sizePolicy6)
+        self.verticalLayout_3 = QVBoxLayout(self.verticalWidget)
+        self.verticalLayout_3.setSpacing(0)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.system_size_btn = QPushButton(self.verticalWidget)
         self.system_size_btn.setObjectName(u"system_size_btn")
         sizePolicy4.setHeightForWidth(self.system_size_btn.sizePolicy().hasHeightForWidth())
         self.system_size_btn.setSizePolicy(sizePolicy4)
@@ -413,21 +292,28 @@ class Ui_MainWindow(object):
 "{\n"
 "background-color: rgb(105,158,105)\n"
 "}")
-        icon7 = QIcon()
-        icon7.addFile(u"icon/up.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.system_size_btn.setIcon(icon7)
+        icon3 = QIcon()
+        icon3.addFile(u"icon/up.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.system_size_btn.setIcon(icon3)
         self.system_size_btn.setIconSize(QSize(30, 30))
         self.system_size_btn.setCheckable(True)
 
-        self.horizontalLayout.addWidget(self.system_size_btn)
+        self.verticalLayout_3.addWidget(self.system_size_btn)
+
+        self.verticalSpacer_2 = QSpacerItem(0, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_3.addItem(self.verticalSpacer_2)
+
+
+        self.horizontalLayout.addWidget(self.verticalWidget)
 
 
         self.verticalLayout.addWidget(self.system_layout_w)
 
         self.input_layout_w = QWidget(self.centralwidget)
         self.input_layout_w.setObjectName(u"input_layout_w")
-        sizePolicy1.setHeightForWidth(self.input_layout_w.sizePolicy().hasHeightForWidth())
-        self.input_layout_w.setSizePolicy(sizePolicy1)
+        sizePolicy6.setHeightForWidth(self.input_layout_w.sizePolicy().hasHeightForWidth())
+        self.input_layout_w.setSizePolicy(sizePolicy6)
         self.input_layout_w.setStyleSheet(u"border:0px")
         self.horizontalLayout_2 = QHBoxLayout(self.input_layout_w)
         self.horizontalLayout_2.setSpacing(0)
@@ -442,14 +328,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2.addWidget(self.input_edit)
 
-        self.input_space = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_2.addItem(self.input_space)
-
         self.button_layout_w = QWidget(self.input_layout_w)
         self.button_layout_w.setObjectName(u"button_layout_w")
-        sizePolicy3.setHeightForWidth(self.button_layout_w.sizePolicy().hasHeightForWidth())
-        self.button_layout_w.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.button_layout_w.sizePolicy().hasHeightForWidth())
+        self.button_layout_w.setSizePolicy(sizePolicy4)
         self.button_layout_w.setStyleSheet(u"border:0px")
         self.verticalLayout_2 = QVBoxLayout(self.button_layout_w)
         self.verticalLayout_2.setSpacing(0)
@@ -479,7 +361,7 @@ class Ui_MainWindow(object):
 "{\n"
 "background-color: rgb(105,158,105)\n"
 "}")
-        self.input_size_btn.setIcon(icon7)
+        self.input_size_btn.setIcon(icon3)
         self.input_size_btn.setIconSize(QSize(30, 30))
         self.input_size_btn.setCheckable(True)
 
@@ -509,9 +391,9 @@ class Ui_MainWindow(object):
 "{\n"
 "background-color: rgb(105,158,105)\n"
 "}")
-        icon8 = QIcon()
-        icon8.addFile(u"icon/send.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.send_btn.setIcon(icon8)
+        icon4 = QIcon()
+        icon4.addFile(u"icon/send.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.send_btn.setIcon(icon4)
         self.send_btn.setIconSize(QSize(30, 30))
 
         self.verticalLayout_2.addWidget(self.send_btn)
@@ -540,12 +422,16 @@ class Ui_MainWindow(object):
 "{\n"
 "background-color: rgb(105,158,105)\n"
 "}")
-        icon9 = QIcon()
-        icon9.addFile(u"icon/clear.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.clear_btn.setIcon(icon9)
+        icon5 = QIcon()
+        icon5.addFile(u"icon/clear.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.clear_btn.setIcon(icon5)
         self.clear_btn.setIconSize(QSize(30, 30))
 
         self.verticalLayout_2.addWidget(self.clear_btn)
+
+        self.verticalSpacer = QSpacerItem(0, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_2.addItem(self.verticalSpacer)
 
 
         self.horizontalLayout_2.addWidget(self.button_layout_w)
@@ -577,25 +463,9 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.load_btn.setText("")
 #if QT_CONFIG(tooltip)
-        self.frame_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt;\">\u663e\u793a\u7a97\u4f53\u8fb9\u6846</span></p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.frame_btn.setText("")
-#if QT_CONFIG(tooltip)
         self.pin_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt;\">\u7a97\u4f53\u7f6e\u9876</span></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.pin_btn.setText("")
-#if QT_CONFIG(tooltip)
-        self.min_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt;\">\u6700\u5c0f\u5316</span></p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.min_btn.setText("")
-#if QT_CONFIG(tooltip)
-        self.max_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt;\">\u6700\u5927\u5316</span></p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.max_btn.setText("")
-#if QT_CONFIG(tooltip)
-        self.close_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt;\">\u5173\u95ed</span></p></body></html>", None))
-#endif // QT_CONFIG(tooltip)
-        self.close_btn.setText("")
         self.dialog_edit.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

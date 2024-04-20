@@ -142,9 +142,9 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.setWindowTitle('Azure-openAI-GPT创新研发部')
         self.setWindowIcon(QIcon('icon\logo.png'))
 
-        self.min_btn.hide()
-        self.max_btn.hide()
-        self.close_btn.hide()
+        # self.min_btn.hide()
+        # self.max_btn.hide()
+        # self.close_btn.hide()
 
         self.load_settings()  # 读取布局参数
         self.load_layput_size()  # 修改布局尺寸
@@ -166,10 +166,10 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.system_size_btn.clicked.connect(partial(self.size_btn_switched, 'system'))
 
         self.pin_btn.clicked.connect(self.pin_on_top)
-        self.frame_btn.clicked.connect(self.frame_window)
-        self.min_btn.clicked.connect(self.min_window)
-        self.max_btn.clicked.connect(self.max_window)
-        self.close_btn.clicked.connect(self.close_window)
+        # self.frame_btn.clicked.connect(self.frame_window)
+        # self.min_btn.clicked.connect(self.min_window)
+        # self.max_btn.clicked.connect(self.max_window)
+        # self.close_btn.clicked.connect(self.close_window)
 
         self.system_edit.textChanged.connect(self.sys_changed)
 
@@ -182,9 +182,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
         # 开启进程
         worker.answerAvailable.connect(self.receive_answer)  # updateUI是一个更新UI的函数
-
-        self.input_space.changeSize(0, 0)
-        self.system_space.changeSize(0, 0)
 
         self.init()
 
@@ -408,6 +405,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.unit = max(self.size * 2 + 9, 24)
         for button in self.findChildren(QPushButton):
             button.setFixedWidth(self.unit)
+            button.setFixedHeight(self.unit)
 
         self.centralwidget.layout().setSpacing(self.gap_0)
         self.centralwidget.setContentsMargins(self.gap_0, self.gap_0, self.gap_0, self.gap_0)
@@ -417,15 +415,15 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.button_layout_w.layout().setSpacing(self.gap_1)
 
         self.log_layout_w.setFixedHeight(self.unit)
-        self.system_layout_w.setFixedHeight(self.unit)
-        self.input_layout_w.setFixedHeight(self.unit * 3 + 4)
-        self.button_layout_w.setFixedWidth(self.unit)
 
-    def size_btn_switched(self, widget, checked=None):  # 问题框尺寸改变
-        if widget == 'input':
+
+    def size_btn_switched(self, button_name, checked=None):  # 问题框尺寸改变
+        if button_name == 'input':
             btn = self.input_size_btn
+            widget = self.input_edit
         else:
             btn = self.system_size_btn
+            widget = self.system_edit
 
         if checked is None:
             checked = btn.isChecked()
@@ -435,31 +433,14 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.widget_size_update(widget, checked)
 
     def widget_size_update(self, widget, checked):
-        if widget == 'input':
-            box = self.input_edit
-            space = self.input_space
-            layout = self.input_layout_w.layout()
-        else:
-            box = self.system_edit
-            space = self.system_space
-            layout = self.system_layout_w.layout()
-
         if checked:
-            space.changeSize(20, 20, QSizePolicy.Policy.Expanding)
-            geo = box.geometry()
-            geo.moveTopLeft(box.mapTo(self, QPoint(0, 0)))
-            top = self.dialog_edit.geometry().top() + int(self.dialog_edit.height() / 4)
-            geo.setTop(top)
-            geo.setBottom(geo.bottom())
-            box.setGeometry(geo)
-            box.setParent(self)
-            box.show()
+            self.old_dialog_height = self.dialog_edit.height()
+            self.dialog_edit.setFixedHeight(self.unit * 2)
         else:
-            space.changeSize(0, 0)
-            layout.insertWidget(0, box)
+            self.dialog_edit.setFixedHeight(self.old_dialog_height)
 
-        box.setFocus()
-        box.moveCursor(QTextCursor.End, QTextCursor.MoveAnchor)
+        widget.setFocus()
+        widget.moveCursor(QTextCursor.End, QTextCursor.MoveAnchor)
 
     def pin_on_top(self):
         btn = self.pin_btn
