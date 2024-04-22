@@ -16,9 +16,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QComboBox, QDoubleSpinBox,
-    QHBoxLayout, QLayout, QLineEdit, QMainWindow,
-    QPlainTextEdit, QPushButton, QSizePolicy, QSpacerItem,
-    QTextEdit, QVBoxLayout, QWidget)
+    QHBoxLayout, QLabel, QLayout, QLineEdit,
+    QMainWindow, QPlainTextEdit, QPushButton, QSizePolicy,
+    QSpacerItem, QTextEdit, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -224,16 +224,13 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.log_layout_w)
 
-        self.dialog_layout_w = QWidget(self.centralwidget)
-        self.dialog_layout_w.setObjectName(u"dialog_layout_w")
-        sizePolicy2.setHeightForWidth(self.dialog_layout_w.sizePolicy().hasHeightForWidth())
-        self.dialog_layout_w.setSizePolicy(sizePolicy2)
-        self.dialog_layout_w.setStyleSheet(u"border:0px;")
-        self.horizontalLayout_3 = QHBoxLayout(self.dialog_layout_w)
-        self.horizontalLayout_3.setSpacing(0)
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.dialog_edit = QTextEdit(self.dialog_layout_w)
+        self.token_stats = QLabel(self.centralwidget)
+        self.token_stats.setObjectName(u"token_stats")
+        self.token_stats.setFont(font1)
+
+        self.verticalLayout.addWidget(self.token_stats)
+
+        self.dialog_edit = QTextEdit(self.centralwidget)
         self.dialog_edit.setObjectName(u"dialog_edit")
         sizePolicy2.setHeightForWidth(self.dialog_edit.sizePolicy().hasHeightForWidth())
         self.dialog_edit.setSizePolicy(sizePolicy2)
@@ -244,16 +241,7 @@ class Ui_MainWindow(object):
         self.dialog_edit.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.dialog_edit.setReadOnly(True)
 
-        self.horizontalLayout_3.addWidget(self.dialog_edit)
-
-        self.token_disp = QTextEdit(self.dialog_layout_w)
-        self.token_disp.setObjectName(u"token_disp")
-        self.token_disp.setMaximumSize(QSize(100, 16777215))
-
-        self.horizontalLayout_3.addWidget(self.token_disp)
-
-
-        self.verticalLayout.addWidget(self.dialog_layout_w)
+        self.verticalLayout.addWidget(self.dialog_edit)
 
         self.system_layout_w = QWidget(self.centralwidget)
         self.system_layout_w.setObjectName(u"system_layout_w")
@@ -488,6 +476,7 @@ class Ui_MainWindow(object):
         self.pin_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt;\">\u7a97\u4f53\u7f6e\u9876</span></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.pin_btn.setText("")
+        self.token_stats.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.dialog_edit.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

@@ -75,3 +75,9 @@ background-color:{DEFAULT_BG};
 border:1px solid {BORDER_COLOR};
 color: white;
 """
+
+LABEL_STYLE =  f"""
+background-color:{DEFAULT_BG};
+border:1px solid {BORDER_COLOR};
+color: {PRESSED_BG};
+"""

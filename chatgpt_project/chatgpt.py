@@ -128,6 +128,7 @@ def restrain_height(widget: QWidget):
     widget.setMaximumHeight(height)
     widget.setSizePolicy(EXPAND, FIXED)
 
+
 def expand_height(widget: QWidget):
     widget.setMaximumHeight(8000)
     widget.setSizePolicy(EXPAND, EXPAND)
@@ -196,7 +197,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
     def load_style(self):
         self.setStyleSheet(WINDOW_STYLE)
-        box_list = [self.log_name_edit, self.dialog_edit, self.system_edit, self.input_edit, self.token_disp]
+        box_list = [self.log_name_edit, self.dialog_edit, self.system_edit, self.input_edit]
         for box in box_list:
             box.setStyleSheet(DEFAULT_BOX_STYLE)
 
@@ -209,6 +210,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
             vbox.setStyleSheet(VBOX_STYLE)
 
         self.model_combo.setStyleSheet(VBOX_STYLE)
+        self.token_stats.setStyleSheet(LABEL_STYLE)
 
     def update_icon_color(self, color):
         for btn in self.findChildren(QPushButton):
@@ -413,18 +415,17 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.system_layout_w.layout().setSpacing(self.gap_1)
         self.input_layout_w.layout().setSpacing(self.gap_1)
         self.button_layout_w.layout().setSpacing(self.gap_1)
-        self.dialog_layout_w.layout().setSpacing(self.gap_1)
 
         self.log_layout_w.setFixedHeight(self.unit)
+        self.token_stats.setFixedHeight(self.unit)
 
-        self.dialog_layout_w.setMinimumHeight(self.unit * 2)
-        self.input_layout_w.setMinimumHeight(self.unit * 3 + 4)
+        self.dialog_edit.setMinimumHeight(self.unit * 2)
+        self.input_layout_w.setMinimumHeight(self.unit * 3 + 8)
         self.system_layout_w.setMinimumHeight(self.unit)
 
         restrain_height(self.input_layout_w)
         restrain_height(self.system_layout_w)
-        expand_height(self.dialog_layout_w)
-
+        expand_height(self.dialog_edit)
 
     def size_btn_switched(self, button_name, checked=None):  # 问题框尺寸改变
         if button_name == 'input':
@@ -439,20 +440,18 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         else:
             btn.setChecked(checked)
 
-        self.widget_size_update(widget, checked)
-
-    def widget_size_update(self, widget, checked):
         parent = widget.parent()
         if checked:
             expand_height(parent)
-            restrain_height(self.dialog_layout_w)
+            restrain_height(self.dialog_edit)
 
         else:
-            expand_height(self.dialog_layout_w)
+            expand_height(self.dialog_edit)
             restrain_height(parent)
 
         widget.setFocus()
         widget.moveCursor(QTextCursor.End, QTextCursor.MoveAnchor)
+
 
     def pin_on_top(self):
         btn = self.pin_btn
