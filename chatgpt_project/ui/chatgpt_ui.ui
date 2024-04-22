@@ -391,6 +391,12 @@ background-color: rgb(105,158,105)
     </item>
     <item>
      <widget class="QWidget" name="dialog_layout_w" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="styleSheet">
        <string notr="true">border:0px;</string>
       </property>
@@ -462,7 +468,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <item>
      <widget class="QWidget" name="system_layout_w" native="true">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
@@ -605,7 +611,7 @@ background-color: rgb(105,158,105)
     <item>
      <widget class="QWidget" name="input_layout_w" native="true">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>

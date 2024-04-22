@@ -15,6 +15,9 @@ from mistune import html
 from json import load, dump
 from util.STYLE_CSS import *
 
+EXPAND = QSizePolicy.Policy.Expanding
+FIXED = QSizePolicy.Policy.Fixed
+
 
 def markdown_to_html(md):
     ht = html(md)
@@ -120,11 +123,14 @@ icon_dict = {"model_btn": [{'state': QIcon.State.On, 'file': "icon/gpt4.png"},
              }
 
 
-def change_size(widget: QWidget, width=-1, height=-1):
-    if width != -1:
-        widget.setMaximumWidth(width)
-    if height != -1:
-        widget.setMaximumHeight(height)
+def restrain_height(widget: QWidget):
+    height = widget.minimumHeight()
+    widget.setMaximumHeight(height)
+    widget.setSizePolicy(EXPAND, FIXED)
+
+def expand_height(widget: QWidget):
+    widget.setMaximumHeight(8000)
+    widget.setSizePolicy(EXPAND, EXPAND)
 
 
 class ChatForm(QMainWindow, Ui_MainWindow):
@@ -190,7 +196,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
     def load_style(self):
         self.setStyleSheet(WINDOW_STYLE)
-        box_list = [self.log_name_edit, self.dialog_edit, self.system_edit, self.input_edit,self.token_disp]
+        box_list = [self.log_name_edit, self.dialog_edit, self.system_edit, self.input_edit, self.token_disp]
         for box in box_list:
             box.setStyleSheet(DEFAULT_BOX_STYLE)
 
@@ -410,8 +416,15 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.dialog_layout_w.layout().setSpacing(self.gap_1)
 
         self.log_layout_w.setFixedHeight(self.unit)
-        change_size(self.input_layout_w, height=self.unit * 3 + 4)
-        change_size(self.system_layout_w, height=self.unit)
+
+        self.dialog_layout_w.setMinimumHeight(self.unit * 2)
+        self.input_layout_w.setMinimumHeight(self.unit * 3 + 4)
+        self.system_layout_w.setMinimumHeight(self.unit)
+
+        restrain_height(self.input_layout_w)
+        restrain_height(self.system_layout_w)
+        expand_height(self.dialog_layout_w)
+
 
     def size_btn_switched(self, button_name, checked=None):  # 问题框尺寸改变
         if button_name == 'input':
@@ -431,16 +444,12 @@ class ChatForm(QMainWindow, Ui_MainWindow):
     def widget_size_update(self, widget, checked):
         parent = widget.parent()
         if checked:
-            self.old_box_height = parent.height()
-            self.old_dialog_height = self.dialog_layout_w.height()
-            change_size(self.dialog_layout_w, height=self.unit * 2)
-            change_size(parent, height=self.height())
-
-
+            expand_height(parent)
+            restrain_height(self.dialog_layout_w)
 
         else:
-            change_size(self.dialog_layout_w, height=self.old_dialog_height)
-            change_size(parent, height=self.old_box_height)
+            expand_height(self.dialog_layout_w)
+            restrain_height(parent)
 
         widget.setFocus()
         widget.moveCursor(QTextCursor.End, QTextCursor.MoveAnchor)
