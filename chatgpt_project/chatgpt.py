@@ -55,12 +55,7 @@ def get_gpt_answer(message, message_sys, temperature, top_p, model):
             stop=None
         )
         answer_str = response.choices[0].message.content
-        print(response.usage.prompt_tokens)
-        print(response.usage.completion_tokens)
-        print(response.usage.total_tokens)
-        token_count = num_tokens_from_messages(full_message)
-        print('-----')
-        print(token_count)
+
 
     except Exception as e:
         answer_str = '请求回答时出现错误，错误内容为:\n' + str(e)
@@ -177,6 +172,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.pin_btn.clicked.connect(self.pin_on_top)
 
         self.system_edit.textChanged.connect(self.sys_changed)
+        self.input_edit.textChanged.connect(self.input_changed)
 
         # 键盘快捷键
         QShortcut(QKeySequence("Ctrl+Return"), self, self.send_question)
@@ -292,6 +288,19 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
         if save:
             self.save_log()
+
+    def input_changed(self):
+        # 存入字典列表
+        di = {'role': 'user', 'content': self.input_edit.toPlainText()}
+        full_message = [self.dialog['sys']] + self.dialog['li'] + [di]
+
+        # print(response.usage.prompt_tokens)
+        # print(response.usage.completion_tokens)
+        # print(response.usage.total_tokens)
+        token_count = num_tokens_from_messages(full_message)
+        price = round(token_count * 0.0005 * 7,5)
+        self.token_stats.setText(f"{token_count}({price} RMB) tokens to be send")
+
 
     def sys_changed(self):
         self.dialog['sys']['content'] = self.system_edit.toPlainText()
