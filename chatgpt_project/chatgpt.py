@@ -62,6 +62,12 @@ def get_gpt_answer(message, message_sys, temperature, top_p, model):
     return answer_str
 
 
+cache_string = "9b5ad71b2ce5302211f9c61530b329a4922fc6a4"
+tiktoken_cache_dir = "tik_cache/"
+os.environ["TIKTOKEN_CACHE_DIR"] = tiktoken_cache_dir
+assert os.path.exists(os.path.join(tiktoken_cache_dir, cache_string))
+encoding = tiktoken.get_encoding("cl100k_base")
+
 role_dict = {'## Q:': 'user', '## A:': 'assistant'}
 setting = QSettings('util/setting.ini', QSettings.Format.IniFormat)
 
@@ -79,7 +85,7 @@ client = AzureOpenAI(
 def num_tokens_from_messages(messages):
     """Return the number of tokens used by a list of messages."""
 
-    encoding = tiktoken.get_encoding("cl100k_base")
+
 
     tokens_per_message = 3
     tokens_per_name = 1
@@ -298,9 +304,8 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         # print(response.usage.completion_tokens)
         # print(response.usage.total_tokens)
         token_count = num_tokens_from_messages(full_message)
-        price = round(token_count * 0.0005 * 7,5)
+        price = round(token_count * 0.0005 * 7, 5)
         self.token_stats.setText(f"{token_count}({price} RMB) tokens to be send")
-
 
     def sys_changed(self):
         self.dialog['sys']['content'] = self.system_edit.toPlainText()
@@ -460,7 +465,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
         widget.setFocus()
         widget.moveCursor(QTextCursor.End, QTextCursor.MoveAnchor)
-
 
     def pin_on_top(self):
         btn = self.pin_btn
