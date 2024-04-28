@@ -85,8 +85,6 @@ client = AzureOpenAI(
 def num_tokens_from_messages(messages):
     """Return the number of tokens used by a list of messages."""
 
-
-
     tokens_per_message = 3
     tokens_per_name = 1
 
@@ -300,12 +298,13 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         di = {'role': 'user', 'content': self.input_edit.toPlainText()}
         full_message = [self.dialog['sys']] + self.dialog['li'] + [di]
 
-        # print(response.usage.prompt_tokens)
-        # print(response.usage.completion_tokens)
-        # print(response.usage.total_tokens)
         token_count = num_tokens_from_messages(full_message)
-        price = round(token_count * 0.0005 * 7, 5)
-        self.token_stats.setText(f"{token_count}({price} RMB) tokens to be send")
+        if self.model_combo.currentText() == '3.5-4K':
+            price = 0.0005
+        else:
+            price = 0.001
+        fee = round(token_count * price * 7, 5)
+        self.token_stats.setText(f"{token_count}({fee} RMB) tokens to be send")
 
     def sys_changed(self):
         self.dialog['sys']['content'] = self.system_edit.toPlainText()
