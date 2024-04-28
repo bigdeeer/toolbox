@@ -103,6 +103,7 @@ class DownloadForm(QtWidgets.QMainWindow, Ui_MainWindow):
             url = self.yt.fmt_streams[row].url
             file_path = self.path_text.text()
             file_name = self.yt.fmt_streams[row].default_filename
+            file_name = file_name.replace('.webm','.weba')
             call([IDM, "/d", url, "/p", file_path, "/f", file_name, '/n'])
             self.status_update('IDM received.')
 
