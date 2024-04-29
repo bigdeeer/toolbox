@@ -1,7 +1,7 @@
 # code=UTF-8
 import os
 
-folder_path = 'D:/Mega/fapiao/2 - 副本'  # Replace with the path to your folder
+folder_path = 'D:/send'  # Replace with the path to your folder
 file_list = os.listdir(folder_path)
 file_list = sorted(file_list)
 
