@@ -1,7 +1,14 @@
-import datetime
-import os.path
 
+import os.path
+cache_string = "9b5ad71b2ce5302211f9c61530b329a4922fc6a4"
+tiktoken_cache_dir = "tik_cache/"
+os.environ["TIKTOKEN_CACHE_DIR"] = tiktoken_cache_dir
+assert os.path.exists(os.path.join(tiktoken_cache_dir, cache_string))
 import tiktoken
+encoding = tiktoken.get_encoding("cl100k_base")
+
+import datetime
+
 
 from sys import argv
 from functools import partial
@@ -62,11 +69,7 @@ def get_gpt_answer(message, message_sys, temperature, top_p, model):
     return answer_str
 
 
-cache_string = "9b5ad71b2ce5302211f9c61530b329a4922fc6a4"
-tiktoken_cache_dir = "tik_cache/"
-os.environ["TIKTOKEN_CACHE_DIR"] = tiktoken_cache_dir
-assert os.path.exists(os.path.join(tiktoken_cache_dir, cache_string))
-encoding = tiktoken.get_encoding("cl100k_base")
+
 
 role_dict = {'## Q:': 'user', '## A:': 'assistant'}
 setting = QSettings('util/setting.ini', QSettings.Format.IniFormat)
