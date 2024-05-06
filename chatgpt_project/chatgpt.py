@@ -28,7 +28,6 @@ FIXED = QSizePolicy.Policy.Fixed
 
 def markdown_to_html(md):
     ht = html(md)
-    ht = html(md)
     ht = ht.replace('\n</code>', '</code>')
     ht = ht.replace('<pre>', CELL_CSS_BEGIN)
     ht = ht.replace('</pre>', CELL_CSS_END)
