@@ -35,7 +35,7 @@ def markdown_to_html(md):
 
 
 class GptWorker(QThread):
-    answerAvailable = Signal(str)  # 定义一个信号，用于传递结果
+    answerAvailable = Signal(str,list)  # 定义一个信号，用于传递结果
     message = []
     message_sys = ''
     temperature = 0.1
@@ -43,9 +43,9 @@ class GptWorker(QThread):
     model = ''
 
     def run(self):
-        answer_str = get_gpt_answer(self.message, self.message_sys, self.temperature, self.top_p,
+        answer_str,tokens= get_gpt_answer(self.message, self.message_sys, self.temperature, self.top_p,
                                     self.model)  # 调用你的函数获取答案
-        self.answerAvailable.emit(answer_str)  # 发送信号
+        self.answerAvailable.emit(answer_str,tokens)  # 发送信号
 
 
 def get_gpt_answer(message, message_sys, temperature, top_p, model):
@@ -61,11 +61,11 @@ def get_gpt_answer(message, message_sys, temperature, top_p, model):
             stop=None
         )
         answer_str = response.choices[0].message.content
-
+        tokens = [response.usage.prompt_tokens,response.usage.completion_tokens,response.usage.total_tokens]
 
     except Exception as e:
         answer_str = '请求回答时出现错误，错误内容为:\n' + str(e)
-    return answer_str
+    return answer_str,tokens
 
 
 
@@ -301,12 +301,19 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         full_message = [self.dialog['sys']] + self.dialog['li'] + [di]
 
         token_count = num_tokens_from_messages(full_message)
+        self.token_status_update(predicted=token_count)
+        self.token_status_update()
         if self.model_combo.currentText() == '3.5-4K':
             price = 0.0005
         else:
             price = 0.001
-        fee = round(token_count * price * 7, 5)
+        fee = round(token_count * price * 7/1000, 5)
         self.token_stats.setText(f"{token_count}({fee} RMB) tokens to be send")
+
+    def token_status_update(self,predicted=-1,prompt=-1,completion=-1,total=-1):
+
+
+        self.token_stats.setText(f"{predicted}({prompt})({completion})({total}) tokens to be send")
 
     def sys_changed(self):
         self.dialog['sys']['content'] = self.system_edit.toPlainText()
@@ -335,13 +342,13 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
         self.input_edit.setPlainText("Waiting for answer...")
 
-    def receive_answer(self, answer):
+    def receive_answer(self, answer,tokens):
 
         self.record_to_dialog(answer, 'assistant')
         # 关闭回答进程
         worker.quit()
-
         self.input_edit.setPlainText("")
+        self.show_actual_tokens(tokens)
 
     def save_log(self):
         # 尝试获取名称
