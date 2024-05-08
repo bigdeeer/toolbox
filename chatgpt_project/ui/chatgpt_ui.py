@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'chatgpt_ui.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.0
+## Created by: Qt User Interface Compiler version 6.4.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -224,11 +224,36 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.log_layout_w)
 
-        self.token_stats = QLabel(self.centralwidget)
-        self.token_stats.setObjectName(u"token_stats")
-        self.token_stats.setFont(font1)
+        self.token_disp_layout_w = QWidget(self.centralwidget)
+        self.token_disp_layout_w.setObjectName(u"token_disp_layout_w")
+        self.token_disp_layout_w.setStyleSheet(u"border:0px;")
+        self.horizontalLayout_3 = QHBoxLayout(self.token_disp_layout_w)
+        self.horizontalLayout_3.setSpacing(5)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.predicted_token_disp = QLabel(self.token_disp_layout_w)
+        self.predicted_token_disp.setObjectName(u"predicted_token_disp")
+        self.predicted_token_disp.setFont(font1)
 
-        self.verticalLayout.addWidget(self.token_stats)
+        self.horizontalLayout_3.addWidget(self.predicted_token_disp)
+
+        self.actual_token_disp = QLabel(self.token_disp_layout_w)
+        self.actual_token_disp.setObjectName(u"actual_token_disp")
+        self.actual_token_disp.setFont(font1)
+
+        self.horizontalLayout_3.addWidget(self.actual_token_disp)
+
+        self.sum_token_disp = QLabel(self.token_disp_layout_w)
+        self.sum_token_disp.setObjectName(u"sum_token_disp")
+        self.sum_token_disp.setFont(font1)
+
+        self.horizontalLayout_3.addWidget(self.sum_token_disp)
+
+        self.horizontalLayout_3.setStretch(0, 1)
+        self.horizontalLayout_3.setStretch(1, 2)
+        self.horizontalLayout_3.setStretch(2, 2)
+
+        self.verticalLayout.addWidget(self.token_disp_layout_w)
 
         self.dialog_edit = QTextEdit(self.centralwidget)
         self.dialog_edit.setObjectName(u"dialog_edit")
@@ -476,7 +501,9 @@ class Ui_MainWindow(object):
         self.pin_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt;\">\u7a97\u4f53\u7f6e\u9876</span></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.pin_btn.setText("")
-        self.token_stats.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.predicted_token_disp.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.actual_token_disp.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.sum_token_disp.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.dialog_edit.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

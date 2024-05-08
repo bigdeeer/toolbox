@@ -1,18 +1,18 @@
-
 import os.path
+
 cache_string = "9b5ad71b2ce5302211f9c61530b329a4922fc6a4"
 tiktoken_cache_dir = "tik_cache/"
 os.environ["TIKTOKEN_CACHE_DIR"] = tiktoken_cache_dir
 assert os.path.exists(os.path.join(tiktoken_cache_dir, cache_string))
 import tiktoken
+
 encoding = tiktoken.get_encoding("cl100k_base")
 
 import datetime
 
-
 from sys import argv
 from functools import partial
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog, QSizePolicy, QDoubleSpinBox, QWidget
+from PySide6.QtWidgets import QLabel,QApplication, QMainWindow, QPushButton, QFileDialog, QSizePolicy, QDoubleSpinBox, QWidget
 from PySide6.QtCore import QSettings, QThread, Signal, Qt, QSize, QPoint
 from PySide6.QtGui import QPainter, QIcon, QShortcut, QKeySequence, QTextCursor, QImage, QColor, QPixmap
 from openai.lib.azure import AzureOpenAI
@@ -35,7 +35,7 @@ def markdown_to_html(md):
 
 
 class GptWorker(QThread):
-    answerAvailable = Signal(str,list)  # 定义一个信号，用于传递结果
+    answerAvailable = Signal(str, list)  # 定义一个信号，用于传递结果
     message = []
     message_sys = ''
     temperature = 0.1
@@ -43,9 +43,9 @@ class GptWorker(QThread):
     model = ''
 
     def run(self):
-        answer_str,tokens= get_gpt_answer(self.message, self.message_sys, self.temperature, self.top_p,
-                                    self.model)  # 调用你的函数获取答案
-        self.answerAvailable.emit(answer_str,tokens)  # 发送信号
+        answer_str, tokens = get_gpt_answer(self.message, self.message_sys, self.temperature, self.top_p,
+                                            self.model)  # 调用你的函数获取答案
+        self.answerAvailable.emit(answer_str, tokens)  # 发送信号
 
 
 def get_gpt_answer(message, message_sys, temperature, top_p, model):
@@ -61,13 +61,12 @@ def get_gpt_answer(message, message_sys, temperature, top_p, model):
             stop=None
         )
         answer_str = response.choices[0].message.content
-        tokens = [response.usage.prompt_tokens,response.usage.completion_tokens,response.usage.total_tokens]
+        tokens = [response.usage.prompt_tokens, response.usage.completion_tokens]
 
     except Exception as e:
         answer_str = '请求回答时出现错误，错误内容为:\n' + str(e)
-    return answer_str,tokens
-
-
+        tokens = [0, 0]
+    return answer_str, tokens
 
 
 role_dict = {'## Q:': 'user', '## A:': 'assistant'}
@@ -76,6 +75,10 @@ setting = QSettings('util/setting.ini', QSettings.Format.IniFormat)
 with open('util/api_key.txt', 'r', encoding='utf-8') as f:
     azure_endpoint = f.readline().strip()
     api_key = f.readline().strip()
+
+with open('util/fee.txt', 'r', encoding='utf-8') as f:
+    total_fee = float(f.readline().strip())
+    print(total_fee)
 
 client = AzureOpenAI(
     azure_endpoint=azure_endpoint,
@@ -142,6 +145,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
     gap_0 = 0
     gap_1 = 0
     geo = None
+    dialog_fee = 0
 
     def __init__(self):
         super().__init__()
@@ -194,8 +198,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
         self.init()
 
-        # colorx = QColorDialog.getColor(0, None, "Select Color")
-        # print(colorx)
 
     def load_style(self):
         self.setStyleSheet(WINDOW_STYLE)
@@ -212,7 +214,9 @@ class ChatForm(QMainWindow, Ui_MainWindow):
             vbox.setStyleSheet(VBOX_STYLE)
 
         self.model_combo.setStyleSheet(VBOX_STYLE)
-        self.token_stats.setStyleSheet(LABEL_STYLE)
+        for label in self.token_disp_layout_w.findChildren(QLabel):
+            label.setStyleSheet(LABEL_STYLE)
+
 
     def update_icon_color(self, color):
         for btn in self.findChildren(QPushButton):
@@ -302,18 +306,48 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
         token_count = num_tokens_from_messages(full_message)
         self.token_status_update(predicted=token_count)
-        self.token_status_update()
+
+    def calculate_price(self, token_count):
         if self.model_combo.currentText() == '3.5-4K':
             price = 0.0005
         else:
             price = 0.001
-        fee = round(token_count * price * 7/1000, 5)
-        self.token_stats.setText(f"{token_count}({fee} RMB) tokens to be send")
+        fee = round(token_count * price * 7 / 1000, 5)
+        txt = f"{fee:.5f}￥({token_count})"
+        return txt,fee
 
-    def token_status_update(self,predicted=-1,prompt=-1,completion=-1,total=-1):
+    def token_status_update(self, predicted=0, tokens=None):
+
+        feetxt,_ = self.calculate_price(predicted)
+        txt = f"[Predicted] = {feetxt}"
+        self.predicted_token_disp.setText(txt)
+
+        if not tokens:
+            prompt = completion = 0
+        else:
+            prompt, completion = tokens
+
+        actual_txt = ""
+        global total_fee
+
+        feetxt,fee = self.calculate_price(prompt)
+        total_fee += fee
+        self.dialog_fee += fee
+        actual_txt += f"[LastPrompt] = {feetxt}￥   "
+
+        feetxt,fee = self.calculate_price(completion)
+        total_fee += fee
+        self.dialog_fee += fee
+        actual_txt += f"[LastAnswer] = {feetxt}￥"
+
+        self.actual_token_disp.setText(actual_txt)
+
+        fee = self.dialog_fee
+        sum_txt = f"[DialogTotal] = {fee:.5f}￥   [UserTotal] = {total_fee:.5f}￥"
+        self.sum_token_disp.setText(sum_txt)
 
 
-        self.token_stats.setText(f"{predicted}({prompt})({completion})({total}) tokens to be send")
+
 
     def sys_changed(self):
         self.dialog['sys']['content'] = self.system_edit.toPlainText()
@@ -342,13 +376,14 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
         self.input_edit.setPlainText("Waiting for answer...")
 
-    def receive_answer(self, answer,tokens):
+
+    def receive_answer(self, answer, tokens):
 
         self.record_to_dialog(answer, 'assistant')
         # 关闭回答进程
         worker.quit()
         self.input_edit.setPlainText("")
-        self.show_actual_tokens(tokens)
+        self.token_status_update(tokens=tokens)
 
     def save_log(self):
         # 尝试获取名称
@@ -403,6 +438,9 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         # 给定日志默认名称
         self.log_name_edit.setPlaceholderText(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
 
+        self.dialog_fee = 0
+        self.token_status_update()
+
     def close_window(self):
         self.close()
 
@@ -414,6 +452,8 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         setting.setValue('left', str(self.geometry().left()))
         setting.setValue('temperature', str(self.temp_vbox.value()))
         setting.setValue('topp', str(self.topp_vbox.value()))
+        with open('util/fee.txt', 'w', encoding='utf-8') as f:
+            f.write(str(total_fee))
         # 关闭窗口
         event.accept()
 
@@ -439,7 +479,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.button_layout_w.layout().setSpacing(self.gap_1)
 
         self.log_layout_w.setFixedHeight(self.unit)
-        self.token_stats.setFixedHeight(self.unit)
+        self.token_disp_layout_w.setFixedHeight(self.unit)
 
         self.dialog_edit.setMinimumHeight(self.unit * 2)
         self.input_layout_w.setMinimumHeight(self.unit * 3 + 8)
