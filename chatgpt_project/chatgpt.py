@@ -313,7 +313,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         else:
             price = 0.001
         fee = round(token_count * price * 7 / 1000, 5)
-        txt = f"{fee:.5f}￥({token_count})"
+        txt = f"{fee:.4f}({token_count})"
         return txt,fee
 
     def token_status_update(self, predicted=0, tokens=None):
@@ -333,17 +333,17 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         feetxt,fee = self.calculate_price(prompt)
         total_fee += fee
         self.dialog_fee += fee
-        actual_txt += f"[LastPrompt] = {feetxt}￥   "
+        actual_txt += f"[LastPrompt] = {feetxt}   "
 
         feetxt,fee = self.calculate_price(completion)
         total_fee += fee
         self.dialog_fee += fee
-        actual_txt += f"[LastAnswer] = {feetxt}￥"
+        actual_txt += f"[LastAnswer] = {feetxt}"
 
         self.actual_token_disp.setText(actual_txt)
 
         fee = self.dialog_fee
-        sum_txt = f"[DialogTotal] = {fee:.5f}￥   [UserTotal] = {total_fee:.5f}￥"
+        sum_txt = f"[DialogTotal] = {fee:.4f}   [UserTotal] = {total_fee:.4f}"
         self.sum_token_disp.setText(sum_txt)
 
 
