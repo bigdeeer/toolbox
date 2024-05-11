@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'youtubedlUI.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.6.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -47,8 +47,8 @@ class Ui_MainWindow(object):
 "color:white")
         self.link_text.setAlignment(Qt.AlignCenter)
         self.tableWidget = QTableWidget(self.centralwidget)
-        if (self.tableWidget.columnCount() < 8):
-            self.tableWidget.setColumnCount(8)
+        if (self.tableWidget.columnCount() < 9):
+            self.tableWidget.setColumnCount(9)
         __qtablewidgetitem = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
@@ -65,10 +65,12 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(6, __qtablewidgetitem6)
         __qtablewidgetitem7 = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(7, __qtablewidgetitem7)
+        __qtablewidgetitem8 = QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(8, __qtablewidgetitem8)
         if (self.tableWidget.rowCount() < 1):
             self.tableWidget.setRowCount(1)
-        __qtablewidgetitem8 = QTableWidgetItem()
-        self.tableWidget.setVerticalHeaderItem(0, __qtablewidgetitem8)
+        __qtablewidgetitem9 = QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(0, __qtablewidgetitem9)
         self.tableWidget.setObjectName(u"tableWidget")
         self.tableWidget.setGeometry(QRect(10, 130, 781, 731))
         self.tableWidget.setStyleSheet(u"QWidget{\n"
@@ -166,8 +168,10 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"Audio codec", None));
         ___qtablewidgetitem7 = self.tableWidget.horizontalHeaderItem(7)
         ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"Link", None));
-        ___qtablewidgetitem8 = self.tableWidget.verticalHeaderItem(0)
-        ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
+        ___qtablewidgetitem8 = self.tableWidget.horizontalHeaderItem(8)
+        ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"IDM download", None));
+        ___qtablewidgetitem9 = self.tableWidget.verticalHeaderItem(0)
+        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
 #if QT_CONFIG(tooltip)
         self.ip_text.setToolTip(QCoreApplication.translate("MainWindow", u"Http(s) proxy IP address", None))
 #endif // QT_CONFIG(tooltip)
@@ -176,7 +180,7 @@ class Ui_MainWindow(object):
         self.path_text.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Save path here", None))
         self.browse_button.setText(QCoreApplication.translate("MainWindow", u"Browse", None))
         self.playlist_button.setText(QCoreApplication.translate("MainWindow", u"Download playlist", None))
-        self.link2_text.setText(QCoreApplication.translate("MainWindow", u"https://www.youtube.com/", None))
+        self.link2_text.setText(QCoreApplication.translate("MainWindow", u"https://www.youtube.com/watch?v=WCI6zGoXRdA&list=PLOYb5b_5Q-xr3n7Cvxg7eh_UC2Z2bVQVl", None))
         self.link2_text.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Playlist link here", None))
         self.merge_button.setText(QCoreApplication.translate("MainWindow", u"Merge meta", None))
     # retranslateUi

@@ -5,6 +5,8 @@ import pytube
 import sys
 import requests
 import os
+
+from PySide6.QtWidgets import QApplication
 from mutagen import mp4
 import scrapetube
 
@@ -28,13 +30,13 @@ class DownloadForm(QtWidgets.QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)  # 初始化所有控件
 
-        column_width_list = [50, 30, 50, 60, 70, 90, 90]
+        column_width_list = [50, 30, 50, 60, 70, 90, 90,90]
 
         for i in range(self.tableWidget.columnCount() - 1):
             self.tableWidget.setColumnWidth(i, column_width_list[i])
 
         self.parse_button.clicked.connect(self.parse_link)
-        self.tableWidget.cellClicked.connect(self.copy_link)
+        self.tableWidget.cellClicked.connect(self.cell_clicked)
         self.browse_button.clicked.connect(self.update_save_path)
         self.playlist_button.clicked.connect(self.download_playlist)
         self.ip_text.textChanged.connect(self.change_ip)
@@ -95,17 +97,30 @@ class DownloadForm(QtWidgets.QMainWindow, Ui_MainWindow):
             self.add_text(i, 3, round(stream.filesize_approx / 1024 / 1024, 1))
             self.add_text(i, 5, stream.video_codec)
             self.add_text(i, 6, stream.audio_codec)
-            self.add_text(i, 7, 'IDM download')
+            self.add_text(i, 7, 'copy link')
+            self.add_text(i, 8, 'IDM download')
 
-    def copy_link(self, row, column):
+    def cell_clicked(self, row, column):
         if column == 7:
-            self.status_update('Sending to IDM...')
             url = self.yt.fmt_streams[row].url
-            file_path = self.path_text.text()
-            file_name = self.yt.fmt_streams[row].default_filename
-            file_name = file_name.replace('.webm','.weba')
-            call([IDM, "/d", url, "/p", file_path, "/f", file_name, '/n'])
-            self.status_update('IDM received.')
+            self.copy_link(url)
+        if column == 8:
+            self.idm_download(row)
+
+    def copy_link(self, url):
+        self.clipboard = QApplication.clipboard()
+        self.clipboard.setText(url)
+
+        self.status_update('Link copied to clipboard.')
+
+    def idm_download(self, row):
+        self.status_update('Sending to IDM...')
+        url = self.yt.fmt_streams[row].url
+        file_path = self.path_text.text()
+        file_name = self.yt.fmt_streams[row].default_filename
+        file_name = file_name.replace('.webm', '.weba')
+        call([IDM, "/d", url, "/p", file_path, "/f", file_name, '/n'])
+        self.status_update('IDM received.')
 
     def download_playlist(self):
         # 获取列表
