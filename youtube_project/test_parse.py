@@ -5,7 +5,14 @@ import socket
 from urllib import request
 from urllib.request import Request, urlopen
 
+import pytube
+
 url = 'https://www.youtube.com/watch?v=PLmbeupnGoo'
+
+yt = pytube.YouTube(url, proxies={'https': "socks5://127.0.0.1:4781"})
+streams = yt.fmt_streams
+
+
 
 endpoint = 'https://www.youtube.com/youtubei/v1/player'
 method = 'POST'
