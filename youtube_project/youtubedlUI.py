@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'youtubedlUI.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.0
+## Created by: Qt User Interface Compiler version 6.6.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -47,8 +47,8 @@ class Ui_MainWindow(object):
 "color:white")
         self.link_text.setAlignment(Qt.AlignCenter)
         self.tableWidget = QTableWidget(self.centralwidget)
-        if (self.tableWidget.columnCount() < 9):
-            self.tableWidget.setColumnCount(9)
+        if (self.tableWidget.columnCount() < 7):
+            self.tableWidget.setColumnCount(7)
         __qtablewidgetitem = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
@@ -63,14 +63,10 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(5, __qtablewidgetitem5)
         __qtablewidgetitem6 = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(6, __qtablewidgetitem6)
-        __qtablewidgetitem7 = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(7, __qtablewidgetitem7)
-        __qtablewidgetitem8 = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(8, __qtablewidgetitem8)
         if (self.tableWidget.rowCount() < 1):
             self.tableWidget.setRowCount(1)
-        __qtablewidgetitem9 = QTableWidgetItem()
-        self.tableWidget.setVerticalHeaderItem(0, __qtablewidgetitem9)
+        __qtablewidgetitem7 = QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(0, __qtablewidgetitem7)
         self.tableWidget.setObjectName(u"tableWidget")
         self.tableWidget.setGeometry(QRect(10, 130, 781, 731))
         self.tableWidget.setStyleSheet(u"QWidget{\n"
@@ -157,21 +153,17 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem1 = self.tableWidget.horizontalHeaderItem(1)
         ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Fps", None));
         ___qtablewidgetitem2 = self.tableWidget.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Ext", None));
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Bitrate", None));
         ___qtablewidgetitem3 = self.tableWidget.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Size(MB)", None));
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Size", None));
         ___qtablewidgetitem4 = self.tableWidget.horizontalHeaderItem(4)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Abr(kbps)", None));
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u" Codec", None));
         ___qtablewidgetitem5 = self.tableWidget.horizontalHeaderItem(5)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Video codec", None));
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Copy link", None));
         ___qtablewidgetitem6 = self.tableWidget.horizontalHeaderItem(6)
-        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"Audio codec", None));
-        ___qtablewidgetitem7 = self.tableWidget.horizontalHeaderItem(7)
-        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"Link", None));
-        ___qtablewidgetitem8 = self.tableWidget.horizontalHeaderItem(8)
-        ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"IDM download", None));
-        ___qtablewidgetitem9 = self.tableWidget.verticalHeaderItem(0)
-        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"IDM download", None));
+        ___qtablewidgetitem7 = self.tableWidget.verticalHeaderItem(0)
+        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
 #if QT_CONFIG(tooltip)
         self.ip_text.setToolTip(QCoreApplication.translate("MainWindow", u"Http(s) proxy IP address", None))
 #endif // QT_CONFIG(tooltip)
