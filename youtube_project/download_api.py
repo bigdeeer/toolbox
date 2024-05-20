@@ -1,9 +1,21 @@
 import pytube
+import yt_dlp
+
 
 proxies = {'https': "socks5://127.0.0.1:4781"}
 
 
+
+
+
 def download(url):
+    yd = yt_dlp.YoutubeDL({'proxy': proxies})
+    yd.proxies = proxies
+    a = yd.extract_info(url,download=False)
+
+    print(a)
+
+
     yt = pytube.YouTube(url, proxies=proxies)
     yt.bypass_age_gate()
     streaming = yt.vid_info['streamingData']
