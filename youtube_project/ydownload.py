@@ -25,6 +25,7 @@ IDM = "IDMan.exe"
 class DownloadForm(QtWidgets.QMainWindow, Ui_MainWindow):
     file_name = ''
     yt = None
+    data = None
 
     def __init__(self):
         super().__init__()
@@ -75,27 +76,34 @@ class DownloadForm(QtWidgets.QMainWindow, Ui_MainWindow):
         self.status_update('Parsing video...')
         table.setRowCount(0)
         link = self.link_text.text()
-        streams = download(link)
-        source_count = len(streams)
+
+        data = download(link)
+        self.data = data
+        formats = data['formats']
+
+        source_count = len(formats)
         table.setRowCount(source_count)
         self.status_update('Parsing complete.')
         for i in range(source_count):
-            stream = streams[i]
-            self.add_text(i, 0, stream['res'])
-            self.add_text(i, 1, stream['fps'])
-            self.add_text(i, 2, stream['bitrate'])
-            self.add_text(i, 3, stream['size'])
-            self.add_text(i, 4, stream['codec'])
-            self.add_text(i, 5, 'copy link',stream['url'])
-            self.add_text(i, 6, 'IDM download',stream['url'])
+            stream = formats[i]
+            self.add_text(i, 0, stream['ext'])
+            self.add_text(i, 1, stream['res'])
+            self.add_text(i, 2, stream['fps'])
+            self.add_text(i, 3, stream['bitrate'])
+            self.add_text(i, 4, stream['size'])
+            self.add_text(i, 5, stream['codec'])
+            self.add_text(i, 6, 'copy link',stream['url'])
+            self.add_text(i, 7, 'IDM download',stream['url'])
 
     def cell_clicked(self, row, column):
-        if column == 5:
-            url = self.tableWidget.item(row,column).toolTip()
-            self.copy_link(url)
+        url = self.data['formats'][row]['url']
+        title = self.data['title']
+        ext = self.data['formats'][row]['ext']
+        filename = f"{title}.{ext}"
         if column == 6:
-            url = self.tableWidget.item(row, column).toolTip()
-            self.idm_download(url)
+            self.copy_link(url)
+        if column == 7:
+            self.idm_download(url,filename)
 
     def copy_link(self, url):
         self.clipboard = QApplication.clipboard()
@@ -103,10 +111,9 @@ class DownloadForm(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.status_update('Link copied to clipboard.')
 
-    def idm_download(self, url):
+    def idm_download(self, url,file_name):
         self.status_update('Sending to IDM...')
         file_path = self.path_text.text()
-        file_name = "test"
         file_name = file_name.replace('.webm', '.weba')
         call([IDM, "/d", url, "/p", file_path, "/f", file_name, '/n'])
         self.status_update('IDM received.')

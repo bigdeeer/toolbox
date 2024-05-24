@@ -127,6 +127,11 @@ QTableCornerButton::section {
     </row>
     <column>
      <property name="text">
+      <string>Ext</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
       <string>Res</string>
      </property>
     </column>
@@ -284,7 +289,7 @@ border:1px solid rgb(130, 130, 130) ;}</string>
 color:white</string>
     </property>
     <property name="text">
-     <string>https://www.youtube.com/watch?v=WCI6zGoXRdA&amp;list=PLOYb5b_5Q-xr3n7Cvxg7eh_UC2Z2bVQVl</string>
+     <string/>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
