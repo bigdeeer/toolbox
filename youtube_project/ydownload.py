@@ -1,3 +1,5 @@
+import json
+import subprocess
 import time
 import pytube
 import sys
@@ -117,6 +119,7 @@ class DownloadForm(QtWidgets.QMainWindow, Ui_MainWindow):
         file_name = file_name.replace('.webm', '.weba')
         call([IDM, "/d", url, "/p", file_path, "/f", file_name, '/n'])
         self.status_update('IDM received.')
+
 
     def download_playlist(self):
         # 获取列表

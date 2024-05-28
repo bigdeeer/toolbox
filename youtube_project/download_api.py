@@ -8,6 +8,8 @@ def download(url):
     yt.bypass_age_gate()
     streaming = yt.vid_info['streamingData']
     title = yt.title
+    # remove invalid characters for a filename
+    title = ''.join(c for c in title if c.isalnum() or c.isspace())
     thumbnail_url = yt.thumbnail_url
     formats = []
 
@@ -17,7 +19,7 @@ def download(url):
         rate_str = _item['averageBitrate'] if 'averageBitrate' in _item else _item['bitrate']
         bitrate = float(rate_str) / 1024
         codec = _item['mimeType']
-        size = round(float(_item['approxDurationMs']) / 1000 * bitrate / 1024, 1)
+        size = round(float(_item['approxDurationMs']) / 1000 * bitrate /8/ 1024, 1)
         url = _item['url']
 
         _, ext = codec.split('/', 1)
