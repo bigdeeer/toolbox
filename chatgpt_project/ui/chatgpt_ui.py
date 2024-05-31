@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'chatgpt_ui.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.6.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -20,12 +20,14 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QComboBox, QDoubl
     QMainWindow, QPlainTextEdit, QPushButton, QSizePolicy,
     QSpacerItem, QTextEdit, QVBoxLayout, QWidget)
 
+from widgets.dialog_listwidget import DialogList
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(975, 743)
-        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
@@ -45,7 +47,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.log_layout_w = QWidget(self.centralwidget)
         self.log_layout_w.setObjectName(u"log_layout_w")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.log_layout_w.sizePolicy().hasHeightForWidth())
@@ -58,7 +60,7 @@ class Ui_MainWindow(object):
         self.log_layout.setContentsMargins(0, 0, 0, 0)
         self.log_name_edit = QLineEdit(self.log_layout_w)
         self.log_name_edit.setObjectName(u"log_name_edit")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.log_name_edit.sizePolicy().hasHeightForWidth())
@@ -76,7 +78,7 @@ class Ui_MainWindow(object):
         self.model_combo.addItem("")
         self.model_combo.addItem("")
         self.model_combo.setObjectName(u"model_combo")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.model_combo.sizePolicy().hasHeightForWidth())
@@ -120,7 +122,7 @@ class Ui_MainWindow(object):
 
         self.save_btn = QPushButton(self.log_layout_w)
         self.save_btn.setObjectName(u"save_btn")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding)
         sizePolicy4.setHorizontalStretch(0)
         sizePolicy4.setVerticalStretch(0)
         sizePolicy4.setHeightForWidth(self.save_btn.sizePolicy().hasHeightForWidth())
@@ -255,6 +257,16 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.token_disp_layout_w)
 
+        self.dialog_list = DialogList(self.centralwidget)
+        self.dialog_list.setObjectName(u"dialog_list")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.dialog_list.sizePolicy().hasHeightForWidth())
+        self.dialog_list.setSizePolicy(sizePolicy5)
+
+        self.verticalLayout.addWidget(self.dialog_list)
+
         self.dialog_edit = QTextEdit(self.centralwidget)
         self.dialog_edit.setObjectName(u"dialog_edit")
         sizePolicy2.setHeightForWidth(self.dialog_edit.sizePolicy().hasHeightForWidth())
@@ -270,11 +282,11 @@ class Ui_MainWindow(object):
 
         self.system_layout_w = QWidget(self.centralwidget)
         self.system_layout_w.setObjectName(u"system_layout_w")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.system_layout_w.sizePolicy().hasHeightForWidth())
-        self.system_layout_w.setSizePolicy(sizePolicy5)
+        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.system_layout_w.sizePolicy().hasHeightForWidth())
+        self.system_layout_w.setSizePolicy(sizePolicy6)
         self.system_layout_w.setStyleSheet(u"border:0px;")
         self.horizontalLayout = QHBoxLayout(self.system_layout_w)
         self.horizontalLayout.setSpacing(0)
@@ -292,11 +304,8 @@ class Ui_MainWindow(object):
 
         self.verticalWidget = QWidget(self.system_layout_w)
         self.verticalWidget.setObjectName(u"verticalWidget")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.verticalWidget.sizePolicy().hasHeightForWidth())
-        self.verticalWidget.setSizePolicy(sizePolicy6)
+        sizePolicy5.setHeightForWidth(self.verticalWidget.sizePolicy().hasHeightForWidth())
+        self.verticalWidget.setSizePolicy(sizePolicy5)
         self.verticalLayout_3 = QVBoxLayout(self.verticalWidget)
         self.verticalLayout_3.setSpacing(0)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
@@ -333,7 +342,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.system_size_btn)
 
-        self.verticalSpacer_2 = QSpacerItem(0, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer_2 = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_3.addItem(self.verticalSpacer_2)
 
@@ -345,8 +354,8 @@ class Ui_MainWindow(object):
 
         self.input_layout_w = QWidget(self.centralwidget)
         self.input_layout_w.setObjectName(u"input_layout_w")
-        sizePolicy5.setHeightForWidth(self.input_layout_w.sizePolicy().hasHeightForWidth())
-        self.input_layout_w.setSizePolicy(sizePolicy5)
+        sizePolicy6.setHeightForWidth(self.input_layout_w.sizePolicy().hasHeightForWidth())
+        self.input_layout_w.setSizePolicy(sizePolicy6)
         self.input_layout_w.setStyleSheet(u"border:0px")
         self.horizontalLayout_2 = QHBoxLayout(self.input_layout_w)
         self.horizontalLayout_2.setSpacing(0)
@@ -464,7 +473,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.clear_btn)
 
-        self.verticalSpacer = QSpacerItem(0, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer = QSpacerItem(0, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
 

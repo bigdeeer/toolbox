@@ -293,8 +293,10 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         # 转为html
         ht = markdown_to_html(md)
         self.dialog['ht'] += ht
-        self.dialog_edit.setHtml(CSS_BEGIN + self.dialog['ht'] + "</body></html>")
+        item_ht = CSS_BEGIN + self.dialog['ht'] + "</body></html>"
+        self.dialog_edit.setHtml(item_ht)
         self.dialog_edit.verticalScrollBar().setValue(self.dialog_edit.verticalScrollBar().maximum())
+        self.dialog_list.add_item(item_ht)
 
         if save:
             self.save_log()

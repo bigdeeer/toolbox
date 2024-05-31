@@ -24,6 +24,11 @@ class Ui_Dialog_item(object):
         if not Dialog_item.objectName():
             Dialog_item.setObjectName(u"Dialog_item")
         Dialog_item.resize(589, 332)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(Dialog_item.sizePolicy().hasHeightForWidth())
+        Dialog_item.setSizePolicy(sizePolicy)
         self.verticalLayout_2 = QVBoxLayout(Dialog_item)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.horizontalLayout = QHBoxLayout()
@@ -55,10 +60,10 @@ class Ui_Dialog_item(object):
 
         self.verticalLayout_2.addLayout(self.horizontalLayout)
 
-        self.textEdit = QTextEdit(Dialog_item)
-        self.textEdit.setObjectName(u"textEdit")
+        self.ht_cell = QTextEdit(Dialog_item)
+        self.ht_cell.setObjectName(u"ht_cell")
 
-        self.verticalLayout_2.addWidget(self.textEdit)
+        self.verticalLayout_2.addWidget(self.ht_cell)
 
 
         self.retranslateUi(Dialog_item)

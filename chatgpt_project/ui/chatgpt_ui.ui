@@ -450,6 +450,16 @@ background-color: rgb(105,158,105)
      </widget>
     </item>
     <item>
+     <widget class="DialogList" name="dialog_list" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QTextEdit" name="dialog_edit">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -889,6 +899,14 @@ background-color: rgb(105,158,105)
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DialogList</class>
+   <extends>QWidget</extends>
+   <header>widgets.dialog_listwidget</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
