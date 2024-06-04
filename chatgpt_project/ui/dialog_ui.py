@@ -35,6 +35,13 @@ class Ui_Dialog_item(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.label = QLabel(Dialog_item)
         self.label.setObjectName(u"label")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy1)
+        self.label.setMinimumSize(QSize(60, 0))
+        self.label.setMaximumSize(QSize(60, 16777215))
 
         self.horizontalLayout.addWidget(self.label)
 
@@ -44,16 +51,31 @@ class Ui_Dialog_item(object):
 
         self.pushButton_3 = QPushButton(Dialog_item)
         self.pushButton_3.setObjectName(u"pushButton_3")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
+        self.pushButton_3.setSizePolicy(sizePolicy2)
+        self.pushButton_3.setMinimumSize(QSize(30, 0))
+        self.pushButton_3.setMaximumSize(QSize(30, 16777215))
 
         self.horizontalLayout.addWidget(self.pushButton_3)
 
         self.pushButton_2 = QPushButton(Dialog_item)
         self.pushButton_2.setObjectName(u"pushButton_2")
+        sizePolicy2.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
+        self.pushButton_2.setSizePolicy(sizePolicy2)
+        self.pushButton_2.setMinimumSize(QSize(30, 0))
+        self.pushButton_2.setMaximumSize(QSize(30, 16777215))
 
         self.horizontalLayout.addWidget(self.pushButton_2)
 
         self.pushButton = QPushButton(Dialog_item)
         self.pushButton.setObjectName(u"pushButton")
+        sizePolicy2.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
+        self.pushButton.setSizePolicy(sizePolicy2)
+        self.pushButton.setMinimumSize(QSize(30, 0))
+        self.pushButton.setMaximumSize(QSize(30, 16777215))
 
         self.horizontalLayout.addWidget(self.pushButton)
 
@@ -62,6 +84,9 @@ class Ui_Dialog_item(object):
 
         self.ht_cell = QTextEdit(Dialog_item)
         self.ht_cell.setObjectName(u"ht_cell")
+        self.ht_cell.setStyleSheet(u"background-color:rgb(215,221,215);\n"
+"border:1px solid rgb(90,90,90);\n"
+"border-radius:4px;")
 
         self.verticalLayout_2.addWidget(self.ht_cell)
 
@@ -74,8 +99,8 @@ class Ui_Dialog_item(object):
     def retranslateUi(self, Dialog_item):
         Dialog_item.setWindowTitle(QCoreApplication.translate("Dialog_item", u"Form", None))
         self.label.setText(QCoreApplication.translate("Dialog_item", u"TextLabel", None))
-        self.pushButton_3.setText(QCoreApplication.translate("Dialog_item", u"PushButton", None))
-        self.pushButton_2.setText(QCoreApplication.translate("Dialog_item", u"PushButton", None))
-        self.pushButton.setText(QCoreApplication.translate("Dialog_item", u"PushButton", None))
+        self.pushButton_3.setText(QCoreApplication.translate("Dialog_item", u"E", None))
+        self.pushButton_2.setText(QCoreApplication.translate("Dialog_item", u"P", None))
+        self.pushButton.setText(QCoreApplication.translate("Dialog_item", u"X", None))
     # retranslateUi
 

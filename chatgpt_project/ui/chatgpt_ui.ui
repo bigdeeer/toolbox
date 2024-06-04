@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>975</width>
-    <height>743</height>
+    <height>678</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -452,7 +452,7 @@ background-color: rgb(105,158,105)
     <item>
      <widget class="DialogList" name="dialog_list" native="true">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
