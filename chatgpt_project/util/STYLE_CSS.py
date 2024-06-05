@@ -59,6 +59,28 @@ QPushButton
 {{
 background-color:{DEFAULT_BG};
 border:1px solid {BORDER_COLOR};
+color:white
+}}
+QPushButton:hover
+{{
+background-color: {HOVER_BG}
+}}
+QPushButton:pressed
+{{
+background-color: {PRESSED_BG};
+}}
+"""
+
+BUTTON_STYLE_HIDDEN = f"""
+QPushButton:checked
+{{
+background-color: {CHECKED_BG}
+}}
+QPushButton
+{{
+background-color:{DEFAULT_BG};
+border:0px;
+color:white
 }}
 QPushButton:hover
 {{
@@ -82,4 +104,18 @@ background-color:{DEFAULT_BG};
 border:1px solid {BORDER_COLOR};
 color: {PRESSED_BG};
 }}
+"""
+
+LABEL_HIDDEN = f"""
+QLabel{{
+background-color:{DEFAULT_BG};
+border:0px;
+color: {PRESSED_BG};
+}}
+"""
+
+DIALOG_BOX_STYLE =  f"""
+background-color:{DEFAULT_BG};
+border:0px;
+color: white;
 """
