@@ -3,7 +3,7 @@ from PySide6.QtCore import QItemSelectionModel
 from PySide6.QtWidgets import QListWidget, QListWidgetItem, QWidget, QPushButton, QSizePolicy, QTextEdit
 from mistune import html
 
-from chatgpt_project.ui.dialog_ui import Ui_Dialog_item
+from chatgpt_project.ui.dialog_ui import Ui_dialog_item
 from util.STYLE_CSS import *
 
 EXPANDING = QSizePolicy.Policy.Expanding
@@ -18,7 +18,7 @@ def markdown_to_html(md):
     return ht
 
 
-class DialogListItemWidget(QWidget, Ui_Dialog_item):
+class DialogListItemWidget(QWidget, Ui_dialog_item):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -27,7 +27,7 @@ class DialogListItemWidget(QWidget, Ui_Dialog_item):
             button: QPushButton
             button.setStyleSheet(BUTTON_STYLE_HIDDEN)
 
-        self.ht_cell.setStyleSheet(VBOX_STYLE)
+        self.ht_cell.setStyleSheet(DIALOG_BOX_STYLE)
         self.label.setStyleSheet(LABEL_HIDDEN)
         self.dialog_cell.setStyleSheet(VBOX_STYLE)
 
@@ -62,7 +62,7 @@ class DialogListItem(QListWidgetItem):
         super().__init__()
         self.widget = DialogListItemWidget()
         self.widget.render_dialog(dialog_obj)
-        h = self.widget.ht_cell.height() + self.widget.label.height() + 90
+        h = self.widget.ht_cell.height() + self.widget.label.height() + 50
         self.setSizeHint(QtCore.QSize(0, h))
 
 

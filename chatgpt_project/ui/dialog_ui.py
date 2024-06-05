@@ -19,30 +19,35 @@ from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QHBoxLayout, Q
     QPushButton, QSizePolicy, QSpacerItem, QTextEdit,
     QVBoxLayout, QWidget)
 
-class Ui_Dialog_item(object):
-    def setupUi(self, Dialog_item):
-        if not Dialog_item.objectName():
-            Dialog_item.setObjectName(u"Dialog_item")
-        Dialog_item.resize(895, 420)
-        self.item_layout = QHBoxLayout(Dialog_item)
-        self.item_layout.setSpacing(5)
+class Ui_dialog_item(object):
+    def setupUi(self, dialog_item):
+        if not dialog_item.objectName():
+            dialog_item.setObjectName(u"dialog_item")
+        dialog_item.resize(895, 653)
+        self.item_layout = QHBoxLayout(dialog_item)
+        self.item_layout.setSpacing(0)
         self.item_layout.setObjectName(u"item_layout")
-        self.item_layout.setContentsMargins(5, 5, 5, 5)
+        self.item_layout.setContentsMargins(10, 10, 10, 10)
         self.left_space = QSpacerItem(0, 0, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.item_layout.addItem(self.left_space)
 
-        self.dialog_cell = QWidget(Dialog_item)
+        self.dialog_cell = QWidget(dialog_item)
         self.dialog_cell.setObjectName(u"dialog_cell")
         self.verticalLayout = QVBoxLayout(self.dialog_cell)
-        self.verticalLayout.setSpacing(10)
+        self.verticalLayout.setSpacing(5)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(10, 10, 10, 10)
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setSpacing(5)
+        self.verticalLayout.setContentsMargins(10, 5, 10, 5)
+        self.title = QWidget(self.dialog_cell)
+        self.title.setObjectName(u"title")
+        self.title.setMinimumSize(QSize(0, 30))
+        self.title.setMaximumSize(QSize(16777215, 30))
+        self.title.setStyleSheet(u"border:0px")
+        self.horizontalLayout = QHBoxLayout(self.title)
+        self.horizontalLayout.setSpacing(3)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(5, 5, 5, 5)
-        self.label = QLabel(self.dialog_cell)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.label = QLabel(self.title)
         self.label.setObjectName(u"label")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -61,44 +66,45 @@ class Ui_Dialog_item(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.pushButton_3 = QPushButton(self.dialog_cell)
+        self.pushButton_3 = QPushButton(self.title)
         self.pushButton_3.setObjectName(u"pushButton_3")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
         self.pushButton_3.setSizePolicy(sizePolicy1)
-        self.pushButton_3.setMinimumSize(QSize(30, 0))
-        self.pushButton_3.setMaximumSize(QSize(30, 16777215))
+        self.pushButton_3.setMinimumSize(QSize(30, 30))
+        self.pushButton_3.setMaximumSize(QSize(30, 30))
 
         self.horizontalLayout.addWidget(self.pushButton_3)
 
-        self.pushButton_2 = QPushButton(self.dialog_cell)
+        self.pushButton_2 = QPushButton(self.title)
         self.pushButton_2.setObjectName(u"pushButton_2")
         sizePolicy1.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
         self.pushButton_2.setSizePolicy(sizePolicy1)
-        self.pushButton_2.setMinimumSize(QSize(30, 0))
-        self.pushButton_2.setMaximumSize(QSize(30, 16777215))
+        self.pushButton_2.setMinimumSize(QSize(30, 30))
+        self.pushButton_2.setMaximumSize(QSize(30, 30))
 
         self.horizontalLayout.addWidget(self.pushButton_2)
 
-        self.pushButton = QPushButton(self.dialog_cell)
+        self.pushButton = QPushButton(self.title)
         self.pushButton.setObjectName(u"pushButton")
         sizePolicy1.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
         self.pushButton.setSizePolicy(sizePolicy1)
-        self.pushButton.setMinimumSize(QSize(30, 0))
-        self.pushButton.setMaximumSize(QSize(30, 16777215))
+        self.pushButton.setMinimumSize(QSize(30, 30))
+        self.pushButton.setMaximumSize(QSize(30, 30))
 
         self.horizontalLayout.addWidget(self.pushButton)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.verticalLayout.addWidget(self.title)
 
         self.ht_cell = QTextEdit(self.dialog_cell)
         self.ht_cell.setObjectName(u"ht_cell")
         font1 = QFont()
         font1.setPointSize(12)
         self.ht_cell.setFont(font1)
+        self.ht_cell.setFocusPolicy(Qt.NoFocus)
         self.ht_cell.setStyleSheet(u"background-color:rgb(215,221,215);\n"
 "border:1px solid rgb(90,90,90);\n"
 "border-radius:4px;")
@@ -119,18 +125,18 @@ class Ui_Dialog_item(object):
         self.item_layout.setStretch(1, 2)
         self.item_layout.setStretch(2, 1)
 
-        self.retranslateUi(Dialog_item)
+        self.retranslateUi(dialog_item)
 
-        QMetaObject.connectSlotsByName(Dialog_item)
+        QMetaObject.connectSlotsByName(dialog_item)
     # setupUi
 
-    def retranslateUi(self, Dialog_item):
-        Dialog_item.setWindowTitle(QCoreApplication.translate("Dialog_item", u"Form", None))
-        self.label.setText(QCoreApplication.translate("Dialog_item", u"asdasdasd", None))
-        self.pushButton_3.setText(QCoreApplication.translate("Dialog_item", u"E", None))
-        self.pushButton_2.setText(QCoreApplication.translate("Dialog_item", u"P", None))
-        self.pushButton.setText(QCoreApplication.translate("Dialog_item", u"X", None))
-        self.ht_cell.setHtml(QCoreApplication.translate("Dialog_item", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+    def retranslateUi(self, dialog_item):
+        dialog_item.setWindowTitle(QCoreApplication.translate("dialog_item", u"Form", None))
+        self.label.setText(QCoreApplication.translate("dialog_item", u"asdasdasd", None))
+        self.pushButton_3.setText(QCoreApplication.translate("dialog_item", u"E", None))
+        self.pushButton_2.setText(QCoreApplication.translate("dialog_item", u"P", None))
+        self.pushButton.setText(QCoreApplication.translate("dialog_item", u"X", None))
+        self.ht_cell.setHtml(QCoreApplication.translate("dialog_item", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"

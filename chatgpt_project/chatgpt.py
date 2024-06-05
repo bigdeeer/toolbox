@@ -56,6 +56,7 @@ def get_gpt_answer(message, message_sys, temperature, top_p, model):
             stop=None
         )
         answer_str = response.choices[0].message.content.replace("\n", "")
+        print(answer_str)
         tokens = [response.usage.prompt_tokens, response.usage.completion_tokens]
 
     except Exception as e:

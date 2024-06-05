@@ -98,6 +98,15 @@ border:1px solid {BORDER_COLOR};
 color: white;
 """
 
+CELL_STYLE =  f"""
+QWidget#dialog_item{{
+background-color:{DEFAULT_BG};
+border:1px solid {BORDER_COLOR};
+color: white;
+margin:10px;
+}}
+"""
+
 LABEL_STYLE = f"""
 QLabel{{
 background-color:{DEFAULT_BG};
