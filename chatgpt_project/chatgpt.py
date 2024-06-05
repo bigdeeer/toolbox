@@ -12,13 +12,13 @@ import datetime
 
 from sys import argv
 from functools import partial
-from PySide6.QtWidgets import QLabel,QApplication, QMainWindow, QPushButton, QFileDialog, QSizePolicy, QDoubleSpinBox, QWidget
+from PySide6.QtWidgets import QLabel, QApplication, QMainWindow, QPushButton, QFileDialog, QSizePolicy, QDoubleSpinBox, \
+    QWidget
 from PySide6.QtCore import QSettings, QThread, Signal, Qt, QSize, QPoint
 from PySide6.QtGui import QPainter, QIcon, QShortcut, QKeySequence, QTextCursor, QImage, QColor, QPixmap
 from openai.lib.azure import AzureOpenAI
 
 from ui.chatgpt_ui import Ui_MainWindow
-from mistune import html
 from json import load, dump
 from util.STYLE_CSS import *
 
@@ -26,12 +26,7 @@ EXPAND = QSizePolicy.Policy.Expanding
 FIXED = QSizePolicy.Policy.Fixed
 
 
-def markdown_to_html(md):
-    ht = html(md)
-    ht = ht.replace('\n</code>', '</code>')
-    ht = ht.replace('<pre>', CELL_CSS_BEGIN)
-    ht = ht.replace('</pre>', CELL_CSS_END)
-    return ht
+
 
 
 class GptWorker(QThread):
@@ -198,10 +193,9 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
         self.init()
 
-
     def load_style(self):
         self.setStyleSheet(WINDOW_STYLE)
-        box_list = [self.log_name_edit, self.dialog_edit, self.system_edit, self.input_edit]
+        box_list = [self.log_name_edit, self.system_edit, self.input_edit]
         for box in box_list:
             box.setStyleSheet(DEFAULT_BOX_STYLE)
 
@@ -216,7 +210,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.model_combo.setStyleSheet(VBOX_STYLE)
         for label in self.token_disp_layout_w.findChildren(QLabel):
             label.setStyleSheet(LABEL_STYLE)
-
 
     def update_icon_color(self, color):
         for btn in self.findChildren(QPushButton):
@@ -275,30 +268,12 @@ class ChatForm(QMainWindow, Ui_MainWindow):
             # 保存日志
             self.save_log()
 
-    def record_to_dialog(self, msg, role, save=True):
+    def record_to_dialog(self, dialog_obj, save=True):
 
         # 存入字典列表
-        di = {'role': role, 'content': msg}
-        self.dialog['li'].append(di)
+        self.dialog['li'].append(dialog_obj)
 
-        # 存入md
-        if role == 'user':
-            md_div = '## Q:''\n'
-        else:
-            md_div = '## A:''\n'
-
-        md = md_div + msg + '\n'
-        self.dialog['md'] += md
-
-        # 转为html
-        ht = markdown_to_html(md)
-        self.dialog['ht'] += ht
-        dialog_ht = CSS_BEGIN + self.dialog['ht'] + "</body></html>"
-        self.dialog_edit.setHtml(dialog_ht)
-        self.dialog_edit.verticalScrollBar().setValue(self.dialog_edit.verticalScrollBar().maximum())
-
-        item_ht = CSS_BEGIN + ht + "</body></html>"
-        self.dialog_list.add_item(item_ht)
+        self.dialog_list.add_item(dialog_obj)
 
         if save:
             self.save_log()
@@ -318,11 +293,11 @@ class ChatForm(QMainWindow, Ui_MainWindow):
             price = 0.001
         fee = round(token_count * price * 7 / 1000, 5)
         txt = f"{fee:.4f}({token_count})"
-        return txt,fee
+        return txt, fee
 
     def token_status_update(self, predicted=0, tokens=None):
 
-        feetxt,_ = self.calculate_price(predicted)
+        feetxt, _ = self.calculate_price(predicted)
         txt = f"[Predicted] = {feetxt}"
         self.predicted_token_disp.setText(txt)
 
@@ -334,12 +309,12 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         actual_txt = ""
         global total_fee
 
-        feetxt,fee = self.calculate_price(prompt)
+        feetxt, fee = self.calculate_price(prompt)
         total_fee += fee
         self.dialog_fee += fee
         actual_txt += f"[LastPrompt] = {feetxt}   "
 
-        feetxt,fee = self.calculate_price(completion)
+        feetxt, fee = self.calculate_price(completion)
         total_fee += fee
         self.dialog_fee += fee
         actual_txt += f"[LastAnswer] = {feetxt}"
@@ -349,9 +324,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         fee = self.dialog_fee
         sum_txt = f"[DialogTotal] = {fee:.4f}   [UserTotal] = {total_fee:.4f}"
         self.sum_token_disp.setText(sum_txt)
-
-
-
 
     def sys_changed(self):
         self.dialog['sys']['content'] = self.system_edit.toPlainText()
@@ -365,7 +337,8 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.size_btn_switched('input', checked=False)
         self.size_btn_switched('system', checked=False)
 
-        self.record_to_dialog(question, 'user')
+        dialog_obj = {'role': 'user', 'content': question}
+        self.record_to_dialog(dialog_obj)
 
         # 启动回答进程
         worker.message = self.dialog['li']
@@ -380,16 +353,18 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
         self.input_edit.setPlainText("Waiting for answer...")
 
-
     def receive_answer(self, answer, tokens):
 
-        self.record_to_dialog(answer, 'assistant')
+        dialog_obj = {'role': 'assistant', 'content': answer}
+        self.record_to_dialog(dialog_obj)
+
         # 关闭回答进程
         worker.quit()
         self.input_edit.setPlainText("")
         self.token_status_update(tokens=tokens)
 
     def save_log(self):
+        pass
         # 尝试获取名称
         name = self.log_name_edit.text()
         # 名称已经给定
@@ -435,10 +410,9 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.dialog = {'md': '', 'ht': '', 'li': [],
                        'sys': {'role': 'system', 'content': self.system_edit.toPlainText()}}
         # 清除三个框
-        self.dialog_edit.clear()
+        self.dialog_list.clear()
         self.input_edit.clear()
         self.log_name_edit.clear()
-        self.dialog_edit.setReadOnly(True)
         # 给定日志默认名称
         self.log_name_edit.setPlaceholderText(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
 
@@ -467,7 +441,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         font.setPointSize(self.size)
         self.input_edit.setFont(font)
         self.system_edit.setFont(font)
-        self.dialog_edit.setFont(font)
+
         self.log_name_edit.setFont(font)
 
         self.unit = max(self.size * 2 + 9, 24)
@@ -485,13 +459,13 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.log_layout_w.setFixedHeight(self.unit)
         self.token_disp_layout_w.setFixedHeight(self.unit)
 
-        self.dialog_edit.setMinimumHeight(self.unit * 2)
+        self.dialog_list.setMinimumHeight(self.unit * 2)
         self.input_layout_w.setMinimumHeight(self.unit * 3 + 8)
         self.system_layout_w.setMinimumHeight(self.unit)
 
         restrain_height(self.input_layout_w)
         restrain_height(self.system_layout_w)
-        expand_height(self.dialog_edit)
+        expand_height(self.dialog_list)
 
     def size_btn_switched(self, button_name, checked=None):  # 问题框尺寸改变
         if button_name == 'input':
@@ -509,10 +483,10 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         parent = widget.parent()
         if checked:
             expand_height(parent)
-            restrain_height(self.dialog_edit)
+            restrain_height(self.dialog_list)
 
         else:
-            expand_height(self.dialog_edit)
+            expand_height(self.dialog_list)
             restrain_height(parent)
 
         widget.setFocus()

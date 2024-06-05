@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QComboBox, QDoubleSpinBox,
     QHBoxLayout, QLabel, QLayout, QLineEdit,
     QMainWindow, QPlainTextEdit, QPushButton, QSizePolicy,
-    QSpacerItem, QTextEdit, QVBoxLayout, QWidget)
+    QSpacerItem, QVBoxLayout, QWidget)
 
 from widgets.dialog_listwidget import DialogList
 
@@ -259,34 +259,18 @@ class Ui_MainWindow(object):
 
         self.dialog_list = DialogList(self.centralwidget)
         self.dialog_list.setObjectName(u"dialog_list")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.dialog_list.sizePolicy().hasHeightForWidth())
-        self.dialog_list.setSizePolicy(sizePolicy5)
+        sizePolicy2.setHeightForWidth(self.dialog_list.sizePolicy().hasHeightForWidth())
+        self.dialog_list.setSizePolicy(sizePolicy2)
 
         self.verticalLayout.addWidget(self.dialog_list)
 
-        self.dialog_edit = QTextEdit(self.centralwidget)
-        self.dialog_edit.setObjectName(u"dialog_edit")
-        sizePolicy2.setHeightForWidth(self.dialog_edit.sizePolicy().hasHeightForWidth())
-        self.dialog_edit.setSizePolicy(sizePolicy2)
-        self.dialog_edit.setFont(font1)
-        self.dialog_edit.setStyleSheet(u"background-color:rgb(215,221,215);\n"
-"border:1px solid rgb(90,90,90);\n"
-"border-radius:4px;")
-        self.dialog_edit.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.dialog_edit.setReadOnly(True)
-
-        self.verticalLayout.addWidget(self.dialog_edit)
-
         self.system_layout_w = QWidget(self.centralwidget)
         self.system_layout_w.setObjectName(u"system_layout_w")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.system_layout_w.sizePolicy().hasHeightForWidth())
-        self.system_layout_w.setSizePolicy(sizePolicy6)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.system_layout_w.sizePolicy().hasHeightForWidth())
+        self.system_layout_w.setSizePolicy(sizePolicy5)
         self.system_layout_w.setStyleSheet(u"border:0px;")
         self.horizontalLayout = QHBoxLayout(self.system_layout_w)
         self.horizontalLayout.setSpacing(0)
@@ -304,11 +288,11 @@ class Ui_MainWindow(object):
 
         self.verticalWidget = QWidget(self.system_layout_w)
         self.verticalWidget.setObjectName(u"verticalWidget")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
-        sizePolicy7.setHorizontalStretch(0)
-        sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.verticalWidget.sizePolicy().hasHeightForWidth())
-        self.verticalWidget.setSizePolicy(sizePolicy7)
+        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.verticalWidget.sizePolicy().hasHeightForWidth())
+        self.verticalWidget.setSizePolicy(sizePolicy6)
         self.verticalLayout_3 = QVBoxLayout(self.verticalWidget)
         self.verticalLayout_3.setSpacing(0)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
@@ -357,8 +341,8 @@ class Ui_MainWindow(object):
 
         self.input_layout_w = QWidget(self.centralwidget)
         self.input_layout_w.setObjectName(u"input_layout_w")
-        sizePolicy6.setHeightForWidth(self.input_layout_w.sizePolicy().hasHeightForWidth())
-        self.input_layout_w.setSizePolicy(sizePolicy6)
+        sizePolicy5.setHeightForWidth(self.input_layout_w.sizePolicy().hasHeightForWidth())
+        self.input_layout_w.setSizePolicy(sizePolicy5)
         self.input_layout_w.setStyleSheet(u"border:0px")
         self.horizontalLayout_2 = QHBoxLayout(self.input_layout_w)
         self.horizontalLayout_2.setSpacing(0)
@@ -516,14 +500,6 @@ class Ui_MainWindow(object):
         self.predicted_token_disp.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.actual_token_disp.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.sum_token_disp.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.dialog_edit.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"hr { height: 1px; border-width: 0; }\n"
-"li.unchecked::marker { content: \"\\2610\"; }\n"
-"li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Microsoft YaHei UI'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
         self.system_edit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"\u8f93\u5165\u80cc\u666f\u4fe1\u606f,Enter\u6362\u884c,Ctrl+\u2193\u5c55\u5f00/\u6536\u7f29\u8f93\u5165\u6846", None))
 #if QT_CONFIG(tooltip)
         self.system_size_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt;\">\u5c55\u5f00/\u6536\u7f29</span></p></body></html>", None))
