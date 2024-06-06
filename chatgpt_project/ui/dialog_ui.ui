@@ -79,7 +79,7 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <property name="spacing">
-          <number>3</number>
+          <number>5</number>
          </property>
          <property name="leftMargin">
           <number>0</number>
@@ -134,32 +134,35 @@
          <item>
           <widget class="QPushButton" name="edit_cell_btn">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="minimumSize">
             <size>
-             <width>30</width>
+             <width>0</width>
              <height>30</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>30</width>
+             <width>100</width>
              <height>30</height>
             </size>
            </property>
            <property name="text">
-            <string>E</string>
+            <string> Markdown </string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pause_cell_btn">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -172,19 +175,25 @@
            </property>
            <property name="maximumSize">
             <size>
-             <width>30</width>
+             <width>100</width>
              <height>30</height>
             </size>
            </property>
            <property name="text">
-            <string>P</string>
+            <string> Active </string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="delete_cell_btn">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -197,12 +206,12 @@
            </property>
            <property name="maximumSize">
             <size>
-             <width>30</width>
+             <width>100</width>
              <height>30</height>
             </size>
            </property>
            <property name="text">
-            <string>X</string>
+            <string> Delete </string>
            </property>
           </widget>
          </item>

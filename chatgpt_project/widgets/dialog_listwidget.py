@@ -30,7 +30,7 @@ class DialogListItemWidget(QWidget, Ui_dialog_item):
         self.label.setStyleSheet(LABEL_HIDDEN)
         self.dialog_cell.setStyleSheet(VBOX_STYLE)
 
-        self.delete_cell_btn.setProperty('id',id)
+        self.delete_cell_btn.setProperty('id', id)
 
     def render_dialog(self, dialog_obj):
         md = dialog_obj['content']
@@ -58,15 +58,25 @@ class DialogListItemWidget(QWidget, Ui_dialog_item):
 
 class DialogListItem(QListWidgetItem):
     id = -1
-    mask = False
+    dialog_obj = {}
 
     def __init__(self, dialog_obj, id):
         super().__init__()
         self.id = id
         self.widget = DialogListItemWidget(id)
         self.widget.render_dialog(dialog_obj)
+        self.dialog_obj = dialog_obj
         h = self.widget.ht_cell.height() + self.widget.label.height() + 50
         self.setSizeHint(QtCore.QSize(0, h))
+        self.widget.pause_cell_btn.clicked.connect(self.mask_item)
+
+    def mask_item(self):
+        status = self.widget.pause_cell_btn.isChecked()
+        self.dialog_obj['mask'] = not status
+        if status:
+            self.widget.dialog_cell.setStyleSheet(VBOX_STYLE)
+        else:
+            self.widget.dialog_cell.setStyleSheet(VBOX_STYLE_MASK)
 
 
 class DialogList(QListWidget):
@@ -81,7 +91,6 @@ class DialogList(QListWidget):
         item = DialogListItem(dialog_obj, self.current_id)
         self.current_id += 1
         item.widget.delete_cell_btn.clicked.connect(self.delete_item)
-        item.widget.pause_cell_btn.clicked.connect(self.mask_item)
         self.addItem(item)
 
         self.setItemWidget(item, item.widget)

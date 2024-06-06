@@ -5,6 +5,7 @@ CHECKED_BG = 'rgb(78,81,87)'
 HOVER_BG = 'rgb(130, 153, 206)'
 PRESSED_BG = 'rgb(171, 105, 135)'
 
+MASK_CELL = 'rgb(150, 128, 124)'
 CODE_COLOR = 'rgb(192,192,192)'
 CODE_BG = 'rgb(41,44,46)'
 PRE_COLOR = 'rgb(238, 157, 56)'
@@ -94,6 +95,12 @@ background-color: {PRESSED_BG};
 
 VBOX_STYLE =  f"""
 background-color:{DEFAULT_BG};
+border:1px solid {BORDER_COLOR};
+color: white;
+"""
+
+VBOX_STYLE_MASK =  f"""
+background-color:{MASK_CELL};
 border:1px solid {BORDER_COLOR};
 color: white;
 """

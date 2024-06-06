@@ -44,7 +44,7 @@ class Ui_dialog_item(object):
         self.title.setMaximumSize(QSize(16777215, 30))
         self.title.setStyleSheet(u"border:0px")
         self.horizontalLayout = QHBoxLayout(self.title)
-        self.horizontalLayout.setSpacing(3)
+        self.horizontalLayout.setSpacing(5)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.label = QLabel(self.title)
@@ -68,13 +68,14 @@ class Ui_dialog_item(object):
 
         self.edit_cell_btn = QPushButton(self.title)
         self.edit_cell_btn.setObjectName(u"edit_cell_btn")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.edit_cell_btn.sizePolicy().hasHeightForWidth())
         self.edit_cell_btn.setSizePolicy(sizePolicy1)
-        self.edit_cell_btn.setMinimumSize(QSize(30, 30))
-        self.edit_cell_btn.setMaximumSize(QSize(30, 30))
+        self.edit_cell_btn.setMinimumSize(QSize(0, 30))
+        self.edit_cell_btn.setMaximumSize(QSize(100, 30))
+        self.edit_cell_btn.setCheckable(True)
 
         self.horizontalLayout.addWidget(self.edit_cell_btn)
 
@@ -83,7 +84,9 @@ class Ui_dialog_item(object):
         sizePolicy1.setHeightForWidth(self.pause_cell_btn.sizePolicy().hasHeightForWidth())
         self.pause_cell_btn.setSizePolicy(sizePolicy1)
         self.pause_cell_btn.setMinimumSize(QSize(30, 30))
-        self.pause_cell_btn.setMaximumSize(QSize(30, 30))
+        self.pause_cell_btn.setMaximumSize(QSize(100, 30))
+        self.pause_cell_btn.setCheckable(True)
+        self.pause_cell_btn.setChecked(True)
 
         self.horizontalLayout.addWidget(self.pause_cell_btn)
 
@@ -92,7 +95,7 @@ class Ui_dialog_item(object):
         sizePolicy1.setHeightForWidth(self.delete_cell_btn.sizePolicy().hasHeightForWidth())
         self.delete_cell_btn.setSizePolicy(sizePolicy1)
         self.delete_cell_btn.setMinimumSize(QSize(30, 30))
-        self.delete_cell_btn.setMaximumSize(QSize(30, 30))
+        self.delete_cell_btn.setMaximumSize(QSize(100, 30))
 
         self.horizontalLayout.addWidget(self.delete_cell_btn)
 
@@ -133,9 +136,9 @@ class Ui_dialog_item(object):
     def retranslateUi(self, dialog_item):
         dialog_item.setWindowTitle(QCoreApplication.translate("dialog_item", u"Form", None))
         self.label.setText(QCoreApplication.translate("dialog_item", u"asdasdasd", None))
-        self.edit_cell_btn.setText(QCoreApplication.translate("dialog_item", u"E", None))
-        self.pause_cell_btn.setText(QCoreApplication.translate("dialog_item", u"P", None))
-        self.delete_cell_btn.setText(QCoreApplication.translate("dialog_item", u"X", None))
+        self.edit_cell_btn.setText(QCoreApplication.translate("dialog_item", u" Markdown ", None))
+        self.pause_cell_btn.setText(QCoreApplication.translate("dialog_item", u" Active ", None))
+        self.delete_cell_btn.setText(QCoreApplication.translate("dialog_item", u" Delete ", None))
         self.ht_cell.setHtml(QCoreApplication.translate("dialog_item", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
