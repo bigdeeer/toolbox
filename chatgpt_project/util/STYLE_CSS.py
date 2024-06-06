@@ -2,8 +2,8 @@ BORDER_COLOR = 'rgb(96,96,96)'
 DEFAULT_BG = 'rgb(54,57,63)'
 
 CHECKED_BG = 'rgb(78,81,87)'
-HOVER_BG = 'rgb(65,66,69)'
-PRESSED_BG = 'rgb(150,150,150)'
+HOVER_BG = 'rgb(130, 153, 206)'
+PRESSED_BG = 'rgb(171, 105, 135)'
 
 CODE_COLOR = 'rgb(192,192,192)'
 CODE_BG = 'rgb(41,44,46)'

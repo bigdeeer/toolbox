@@ -55,8 +55,7 @@ def get_gpt_answer(message, message_sys, temperature, top_p, model):
             presence_penalty=0,
             stop=None
         )
-        answer_str = response.choices[0].message.content.replace("\n", "")
-        print(answer_str)
+        answer_str = response.choices[0].message.content
         tokens = [response.usage.prompt_tokens, response.usage.completion_tokens]
 
     except Exception as e:
@@ -65,7 +64,6 @@ def get_gpt_answer(message, message_sys, temperature, top_p, model):
     return answer_str, tokens
 
 
-role_dict = {'## Q:': 'user', '## A:': 'assistant'}
 setting = QSettings('util/setting.ini', QSettings.Format.IniFormat)
 
 with open('util/api_key.txt', 'r', encoding='utf-8') as f:
@@ -152,7 +150,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
         self.load_style()
 
-        self.update_icon_color(BORDER_COLOR)
+        self.update_icon_color(QColor(187, 206, 251))
 
         self.setWindowTitle('Azure-openAI-GPT创新研发部')
         self.setWindowIcon(QIcon('icon\logo.png'))
@@ -182,8 +180,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
         # 键盘快捷键
         QShortcut(QKeySequence("Ctrl+Return"), self, self.send_question)
-        QShortcut(QKeySequence("Ctrl+E"), self, self.edit_dialog)
-        QShortcut(QKeySequence("Ctrl+S"), self, self.save_html)
         QShortcut(QKeySequence("Ctrl+Up"), self, self.input_size_btn.click)
         QShortcut(QKeySequence("Ctrl+Down"), self, self.system_size_btn.click)
 
@@ -222,7 +218,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
                     mask = QImage(item['file'])
                     mask = mask.convertToFormat(QImage.Format_ARGB32)
                     result = QImage(QSize(30, 30), QImage.Format_ARGB32)
-                    result.fill(QColor(200, 200, 200))
+                    result.fill(color)
                     painter = QPainter(result)
                     painter.setCompositionMode(QPainter.CompositionMode.CompositionMode_DestinationIn)
                     painter.drawImage(0, 0, mask)
@@ -380,18 +376,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
             list_to_save = [self.dialog['sys']] + self.dialog['li']
             dump(list_to_save, save_f)
 
-    def save_html(self):
-        name = self.log_name_edit.text()
-        # 名称已经给定
-        if name != '':
-            log_path = 'named_log/'
-        # 未给定名称，使用时间作为日志名称
-        else:
-            name = self.log_name_edit.placeholderText()
-            log_path = 'log/'
-        with open(log_path + name + '.html', 'w', encoding='utf-8') as save_f:
-            save_f.write(self.dialog_edit.toHtml())
-
     def load_log(self):
         load_path = QFileDialog.getOpenFileName(dir='named_log/')[0]
         if load_path:
@@ -403,8 +387,8 @@ class ChatForm(QMainWindow, Ui_MainWindow):
                 self.dialog['sys'] = list_to_load[0]
 
             self.system_edit.setPlainText(self.dialog['sys']['content'])
-            for dc in list_to_load[1:]:
-                self.record_to_dialog(dc['content'], dc['role'], save=False)
+            for obj in list_to_load[1:]:
+                self.record_to_dialog(obj, save=False)
 
     def init(self):
         # 清除对话记录

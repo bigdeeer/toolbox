@@ -1,5 +1,4 @@
 from PySide6 import QtCore
-from PySide6.QtCore import QItemSelectionModel
 from PySide6.QtWidgets import QListWidget, QListWidgetItem, QWidget, QPushButton, QSizePolicy, QTextEdit
 from mistune import html
 
@@ -19,7 +18,7 @@ def markdown_to_html(md):
 
 
 class DialogListItemWidget(QWidget, Ui_dialog_item):
-    def __init__(self):
+    def __init__(self, id):
         super().__init__()
         self.setupUi(self)
 
@@ -31,6 +30,8 @@ class DialogListItemWidget(QWidget, Ui_dialog_item):
         self.label.setStyleSheet(LABEL_HIDDEN)
         self.dialog_cell.setStyleSheet(VBOX_STYLE)
 
+        self.delete_cell_btn.setProperty('id',id)
+
     def render_dialog(self, dialog_obj):
         md = dialog_obj['content']
         role = dialog_obj['role']
@@ -39,16 +40,15 @@ class DialogListItemWidget(QWidget, Ui_dialog_item):
         if role == 'user':
             self.item_layout.setStretch(0, 1)
             self.item_layout.setStretch(2, 0)
-            self.left_space.changeSize(0,0,EXPANDING,EXPANDING)
-            self.right_space.changeSize(0, 0, MININUM,MININUM)
+            self.left_space.changeSize(0, 0, EXPANDING, EXPANDING)
+            self.right_space.changeSize(0, 0, MININUM, MININUM)
         else:
             self.item_layout.setStretch(0, 0)
             self.item_layout.setStretch(2, 1)
-            self.left_space.changeSize(0,0,MININUM,MININUM)
-            self.right_space.changeSize(0, 0, EXPANDING,EXPANDING)
+            self.left_space.changeSize(0, 0, MININUM, MININUM)
+            self.right_space.changeSize(0, 0, EXPANDING, EXPANDING)
 
         self.ht_cell.setHtml(ht)
-        # self.ht_cell.setLineWrapMode(QTextEdit.LineWrapMode.NoWrap)
         self.ht_cell.document().adjustSize()
         h = self.ht_cell.document().size().height()
         self.ht_cell.setFixedHeight(h)
@@ -57,22 +57,38 @@ class DialogListItemWidget(QWidget, Ui_dialog_item):
 
 
 class DialogListItem(QListWidgetItem):
+    id = -1
+    mask = False
 
-    def __init__(self, dialog_obj):
+    def __init__(self, dialog_obj, id):
         super().__init__()
-        self.widget = DialogListItemWidget()
+        self.id = id
+        self.widget = DialogListItemWidget(id)
         self.widget.render_dialog(dialog_obj)
         h = self.widget.ht_cell.height() + self.widget.label.height() + 50
         self.setSizeHint(QtCore.QSize(0, h))
 
 
 class DialogList(QListWidget):
+    current_id = 0
+
     def __init__(self, parent):
         super().__init__(parent)
         self.setVerticalScrollMode(QListWidget.ScrollMode.ScrollPerPixel)
         self.setSelectionMode(QListWidget.SelectionMode.NoSelection)
 
     def add_item(self, dialog_obj):
-        item = DialogListItem(dialog_obj)
+        item = DialogListItem(dialog_obj, self.current_id)
+        self.current_id += 1
+        item.widget.delete_cell_btn.clicked.connect(self.delete_item)
+        item.widget.pause_cell_btn.clicked.connect(self.mask_item)
         self.addItem(item)
+
         self.setItemWidget(item, item.widget)
+
+    def delete_item(self):
+        btn = self.sender()
+        id = btn.property('id')
+        for index in range(self.count()):
+            if self.item(index).id == id:
+                self.takeItem(index)

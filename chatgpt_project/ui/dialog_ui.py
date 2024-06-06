@@ -66,35 +66,35 @@ class Ui_dialog_item(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.pushButton_3 = QPushButton(self.title)
-        self.pushButton_3.setObjectName(u"pushButton_3")
+        self.edit_cell_btn = QPushButton(self.title)
+        self.edit_cell_btn.setObjectName(u"edit_cell_btn")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
-        self.pushButton_3.setSizePolicy(sizePolicy1)
-        self.pushButton_3.setMinimumSize(QSize(30, 30))
-        self.pushButton_3.setMaximumSize(QSize(30, 30))
+        sizePolicy1.setHeightForWidth(self.edit_cell_btn.sizePolicy().hasHeightForWidth())
+        self.edit_cell_btn.setSizePolicy(sizePolicy1)
+        self.edit_cell_btn.setMinimumSize(QSize(30, 30))
+        self.edit_cell_btn.setMaximumSize(QSize(30, 30))
 
-        self.horizontalLayout.addWidget(self.pushButton_3)
+        self.horizontalLayout.addWidget(self.edit_cell_btn)
 
-        self.pushButton_2 = QPushButton(self.title)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        sizePolicy1.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
-        self.pushButton_2.setSizePolicy(sizePolicy1)
-        self.pushButton_2.setMinimumSize(QSize(30, 30))
-        self.pushButton_2.setMaximumSize(QSize(30, 30))
+        self.pause_cell_btn = QPushButton(self.title)
+        self.pause_cell_btn.setObjectName(u"pause_cell_btn")
+        sizePolicy1.setHeightForWidth(self.pause_cell_btn.sizePolicy().hasHeightForWidth())
+        self.pause_cell_btn.setSizePolicy(sizePolicy1)
+        self.pause_cell_btn.setMinimumSize(QSize(30, 30))
+        self.pause_cell_btn.setMaximumSize(QSize(30, 30))
 
-        self.horizontalLayout.addWidget(self.pushButton_2)
+        self.horizontalLayout.addWidget(self.pause_cell_btn)
 
-        self.pushButton = QPushButton(self.title)
-        self.pushButton.setObjectName(u"pushButton")
-        sizePolicy1.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy1)
-        self.pushButton.setMinimumSize(QSize(30, 30))
-        self.pushButton.setMaximumSize(QSize(30, 30))
+        self.delete_cell_btn = QPushButton(self.title)
+        self.delete_cell_btn.setObjectName(u"delete_cell_btn")
+        sizePolicy1.setHeightForWidth(self.delete_cell_btn.sizePolicy().hasHeightForWidth())
+        self.delete_cell_btn.setSizePolicy(sizePolicy1)
+        self.delete_cell_btn.setMinimumSize(QSize(30, 30))
+        self.delete_cell_btn.setMaximumSize(QSize(30, 30))
 
-        self.horizontalLayout.addWidget(self.pushButton)
+        self.horizontalLayout.addWidget(self.delete_cell_btn)
 
 
         self.verticalLayout.addWidget(self.title)
@@ -133,9 +133,9 @@ class Ui_dialog_item(object):
     def retranslateUi(self, dialog_item):
         dialog_item.setWindowTitle(QCoreApplication.translate("dialog_item", u"Form", None))
         self.label.setText(QCoreApplication.translate("dialog_item", u"asdasdasd", None))
-        self.pushButton_3.setText(QCoreApplication.translate("dialog_item", u"E", None))
-        self.pushButton_2.setText(QCoreApplication.translate("dialog_item", u"P", None))
-        self.pushButton.setText(QCoreApplication.translate("dialog_item", u"X", None))
+        self.edit_cell_btn.setText(QCoreApplication.translate("dialog_item", u"E", None))
+        self.pause_cell_btn.setText(QCoreApplication.translate("dialog_item", u"P", None))
+        self.delete_cell_btn.setText(QCoreApplication.translate("dialog_item", u"X", None))
         self.ht_cell.setHtml(QCoreApplication.translate("dialog_item", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
