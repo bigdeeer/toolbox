@@ -208,6 +208,8 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         for label in self.token_disp_layout_w.findChildren(QLabel):
             label.setStyleSheet(LABEL_STYLE)
 
+        self.dialog_list.setStyleSheet(DIALOG_BOX_STYLE)
+
     def update_icon_color(self, color):
         for btn in self.findChildren(QPushButton):
             btn: QPushButton
