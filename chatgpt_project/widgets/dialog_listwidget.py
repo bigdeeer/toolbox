@@ -33,7 +33,7 @@ class DialogListItemWidget(QWidget, Ui_dialog_item):
 
         self.ht_cell.setStyleSheet(DIALOG_BOX_STYLE)
         self.label.setStyleSheet(LABEL_HIDDEN)
-        self.dialog_cell.setStyleSheet(VBOX_STYLE)
+        self.dialog_cell.setStyleSheet(DIALOG_CELL_STYLE)
         self.delete_cell_btn.clicked.connect(self.delete)
         self.ht_cell.cursorPositionChanged.connect(self.select)
         self.id = id

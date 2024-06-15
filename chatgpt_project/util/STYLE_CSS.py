@@ -116,7 +116,7 @@ margin:10px;
 
 LABEL_STYLE = f"""
 QLabel{{
-background-color:{DEFAULT_BG};
+background-color:transparent;
 border:1px solid {BORDER_COLOR};
 color: {PRESSED_BG};
 }}
@@ -124,14 +124,20 @@ color: {PRESSED_BG};
 
 LABEL_HIDDEN = f"""
 QLabel{{
-background-color:{DEFAULT_BG};
+background-color:transparent;
 border:0px;
 color: {PRESSED_BG};
 }}
 """
 
 DIALOG_BOX_STYLE =  f"""
-background-color:{DEFAULT_BG};
+background-color:transparent;
 border:0px;
+color: white;
+"""
+
+DIALOG_CELL_STYLE = f"""
+background-color:rgb(50,50,50);
+border:1px solid {BORDER_COLOR};
 color: white;
 """
