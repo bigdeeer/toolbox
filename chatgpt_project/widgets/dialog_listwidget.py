@@ -1,5 +1,7 @@
 from PySide6 import QtCore
-from PySide6.QtWidgets import QListWidget, QListWidgetItem, QWidget, QPushButton, QSizePolicy, QTextEdit
+from PySide6.QtCore import Signal
+from PySide6.QtGui import QKeySequence, QShortcut, Qt
+from PySide6.QtWidgets import QListWidget, QListWidgetItem, QWidget, QPushButton, QSizePolicy, QTextEdit, QApplication
 from mistune import html
 
 from chatgpt_project.ui.dialog_ui import Ui_dialog_item
@@ -18,6 +20,9 @@ def markdown_to_html(md):
 
 
 class DialogListItemWidget(QWidget, Ui_dialog_item):
+    selected = Signal(int)
+    deleted = Signal(int)
+
     def __init__(self, id):
         super().__init__()
         self.setupUi(self)
@@ -29,8 +34,18 @@ class DialogListItemWidget(QWidget, Ui_dialog_item):
         self.ht_cell.setStyleSheet(DIALOG_BOX_STYLE)
         self.label.setStyleSheet(LABEL_HIDDEN)
         self.dialog_cell.setStyleSheet(VBOX_STYLE)
+        self.delete_cell_btn.clicked.connect(self.delete)
+        self.ht_cell.cursorPositionChanged.connect(self.select)
+        self.id = id
 
-        self.delete_cell_btn.setProperty('id', id)
+    def delete(self):
+        self.deleted.emit(self.id)
+
+    def mousePressEvent(self, event):
+        self.select()
+
+    def select(self):
+        self.selected.emit(self.id)
 
     def render_dialog(self, dialog_obj):
         md = dialog_obj['content']
@@ -86,18 +101,37 @@ class DialogList(QListWidget):
         super().__init__(parent)
         self.setVerticalScrollMode(QListWidget.ScrollMode.ScrollPerPixel)
         self.setSelectionMode(QListWidget.SelectionMode.NoSelection)
+        self.setEditTriggers(QListWidget.EditTrigger.NoEditTriggers)
+        QShortcut(QKeySequence('Ctrl+C'), self, self.copy_text)
+
+
+    def copy_text(self):
+        if not self.currentItem():
+            return
+        textbox = self.currentItem().widget.ht_cell
+
+        cursor = textbox.textCursor()
+        selected_text = cursor.selectedText()
+
+        if selected_text:
+            clipboard = QApplication.clipboard()
+            clipboard.setText(selected_text)
 
     def add_item(self, dialog_obj):
         item = DialogListItem(dialog_obj, self.current_id)
         self.current_id += 1
-        item.widget.delete_cell_btn.clicked.connect(self.delete_item)
+        item.widget.deleted.connect(self.delete_item)
+        item.widget.selected.connect(self.select_item)
         self.addItem(item)
 
         self.setItemWidget(item, item.widget)
 
-    def delete_item(self):
-        btn = self.sender()
-        id = btn.property('id')
+    def select_item(self, id):
+        for index in range(self.count()):
+            if self.item(index).id == id:
+                self.setCurrentItem(self.item(index))
+
+    def delete_item(self, id):
         for index in range(self.count()):
             if self.item(index).id == id:
                 self.takeItem(index)

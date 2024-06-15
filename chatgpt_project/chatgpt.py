@@ -190,6 +190,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
         self.init()
 
+
     def load_style(self):
         self.setStyleSheet(WINDOW_STYLE)
         box_list = [self.log_name_edit, self.system_edit, self.input_edit]
@@ -235,6 +236,7 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.gap_1 = int(setting.value('gap_1'))
         self.temp_vbox.setValue(float(setting.value('temperature')))
         self.topp_vbox.setValue(float(setting.value('topp')))
+
 
     def edit_dialog(self):
         if self.dialog_edit.isReadOnly():
