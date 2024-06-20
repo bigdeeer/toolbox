@@ -238,37 +238,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.topp_vbox.setValue(float(setting.value('topp')))
 
 
-    def edit_dialog(self):
-        if self.dialog_edit.isReadOnly():
-            self.dialog_edit.setReadOnly(False)
-            self.dialog_edit.setPlainText(self.dialog['md'])
-        else:
-            self.dialog_edit.setReadOnly(True)
-
-            md = self.dialog_edit.toPlainText()
-            self.dialog['md'] = md
-
-            ht = markdown_to_html(md)
-            self.dialog['ht'] = ht
-            self.dialog_edit.setHtml(CSS_BEGIN + self.dialog['ht'] + "</body></html>")
-
-            self.dialog['li'] = []
-            role = ''
-            content_list = []
-            lines = md.splitlines()
-            for line in lines:
-                if line == '## Q:' or line == '## A:':
-                    if content_list:
-                        self.dialog['li'].append({'role': role, 'content': '\n'.join(content_list)})
-                    role = role_dict[line]
-                    content_list = []
-                else:
-                    content_list.append(line + '\n')
-            self.dialog['li'].append({'role': role, 'content': '\n'.join(content_list)})
-
-            # 保存日志
-            self.save_log()
-
     def record_to_dialog(self, dialog_obj, save=True):
 
         # 存入字典列表

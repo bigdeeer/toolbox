@@ -4,7 +4,7 @@ from PySide6.QtGui import QKeySequence, QShortcut, Qt
 from PySide6.QtWidgets import QListWidget, QListWidgetItem, QWidget, QPushButton, QSizePolicy, QTextEdit, QApplication
 from mistune import html
 
-from chatgpt_project.ui.dialog_ui import Ui_dialog_item
+from ui.dialog_ui import Ui_dialog_item
 from util.STYLE_CSS import *
 
 EXPANDING = QSizePolicy.Policy.Expanding
