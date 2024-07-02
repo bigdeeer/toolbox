@@ -112,6 +112,7 @@ class DialogList(QListWidget):
 
         cursor = textbox.textCursor()
         selected_text = cursor.selectedText()
+        selected_text = selected_text.replace(chr(8233),'\n')
 
         if selected_text:
             clipboard = QApplication.clipboard()
