@@ -1,13 +1,5 @@
 import os.path
 
-cache_string = "9b5ad71b2ce5302211f9c61530b329a4922fc6a4"
-tiktoken_cache_dir = "tik_cache/"
-os.environ["TIKTOKEN_CACHE_DIR"] = tiktoken_cache_dir
-assert os.path.exists(os.path.join(tiktoken_cache_dir, cache_string))
-import tiktoken
-
-encoding = tiktoken.get_encoding("cl100k_base")
-
 import datetime
 
 from sys import argv
@@ -24,9 +16,6 @@ from util.STYLE_CSS import *
 
 EXPAND = QSizePolicy.Policy.Expanding
 FIXED = QSizePolicy.Policy.Fixed
-
-
-
 
 
 class GptWorker(QThread):
@@ -81,21 +70,6 @@ client = AzureOpenAI(
 )
 
 
-def num_tokens_from_messages(messages):
-    """Return the number of tokens used by a list of messages."""
-
-    tokens_per_message = 3
-    tokens_per_name = 1
-
-    num_tokens = 0
-    for message in messages:
-        num_tokens += tokens_per_message
-        for key, value in message.items():
-            num_tokens += len(encoding.encode(value))
-            if key == "name":
-                num_tokens += tokens_per_name
-    num_tokens += 3  # every reply is primed with <|start|>assistant<|message|>
-    return num_tokens
 
 
 worker = GptWorker()
@@ -190,7 +164,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
 
         self.init()
 
-
     def load_style(self):
         self.setStyleSheet(WINDOW_STYLE)
         box_list = [self.log_name_edit, self.system_edit, self.input_edit]
@@ -237,7 +210,6 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         self.temp_vbox.setValue(float(setting.value('temperature')))
         self.topp_vbox.setValue(float(setting.value('topp')))
 
-
     def record_to_dialog(self, dialog_obj, save=True):
 
         # 存入字典列表
@@ -253,23 +225,20 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         di = {'role': 'user', 'content': self.input_edit.toPlainText()}
         full_message = [self.dialog['sys']] + self.dialog['li'] + [di]
 
-        token_count = num_tokens_from_messages(full_message)
-        self.token_status_update(predicted=token_count)
-
-    def calculate_price(self, token_count):
+    def calculate_price(self, prompt=0, completion=0):
         if self.model_combo.currentText() == '3.5-4K':
-            price = 0.0005
+            price_input = 0.5
+            price_output = 1.5
         else:
-            price = 0.001
-        fee = round(token_count * price * 7 / 1000, 5)
-        txt = f"{fee:.4f}({token_count})"
+            price_input = 5
+            price_output = 15
+        fee = (prompt * price_input + completion * price_output) * 7 / 1000000
+        fee = round(fee, 5)
+        count = prompt + completion
+        txt = f"{fee:.4f}({count})"
         return txt, fee
 
-    def token_status_update(self, predicted=0, tokens=None):
-
-        feetxt, _ = self.calculate_price(predicted)
-        txt = f"[Predicted] = {feetxt}"
-        self.predicted_token_disp.setText(txt)
+    def token_status_update(self, tokens=None):
 
         if not tokens:
             prompt = completion = 0
@@ -279,12 +248,12 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         actual_txt = ""
         global total_fee
 
-        feetxt, fee = self.calculate_price(prompt)
+        feetxt, fee = self.calculate_price(prompt=prompt)
         total_fee += fee
         self.dialog_fee += fee
         actual_txt += f"[LastPrompt] = {feetxt}   "
 
-        feetxt, fee = self.calculate_price(completion)
+        feetxt, fee = self.calculate_price(completion=completion)
         total_fee += fee
         self.dialog_fee += fee
         actual_txt += f"[LastAnswer] = {feetxt}"
@@ -318,10 +287,10 @@ class ChatForm(QMainWindow, Ui_MainWindow):
         if self.model_combo.currentText() == '3.5-4k':
             worker.model = "deer-gpt-35-turbo"
         else:
-            worker.model = "deer-gpt-35-turbo-16k"
+            worker.model = "deer-gpt-4o"
         worker.start()
 
-        self.input_edit.setPlainText("Waiting for answer...")
+        self.input_edit.setPlainText(f"Waiting for answer ...")
 
     def receive_answer(self, answer, tokens):
 

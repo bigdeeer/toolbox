@@ -233,12 +233,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setSpacing(5)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.predicted_token_disp = QLabel(self.token_disp_layout_w)
-        self.predicted_token_disp.setObjectName(u"predicted_token_disp")
-        self.predicted_token_disp.setFont(font1)
-
-        self.horizontalLayout_3.addWidget(self.predicted_token_disp)
-
         self.actual_token_disp = QLabel(self.token_disp_layout_w)
         self.actual_token_disp.setObjectName(u"actual_token_disp")
         self.actual_token_disp.setFont(font1)
@@ -251,9 +245,8 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.sum_token_disp)
 
-        self.horizontalLayout_3.setStretch(0, 1)
+        self.horizontalLayout_3.setStretch(0, 2)
         self.horizontalLayout_3.setStretch(1, 2)
-        self.horizontalLayout_3.setStretch(2, 2)
 
         self.verticalLayout.addWidget(self.token_disp_layout_w)
 
@@ -481,7 +474,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle("")
         self.log_name_edit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"\u8f93\u5165\u65e5\u5fd7\u540d\u79f0", None))
         self.model_combo.setItemText(0, QCoreApplication.translate("MainWindow", u"3.5-4k", None))
-        self.model_combo.setItemText(1, QCoreApplication.translate("MainWindow", u"3.5-16K", None))
+        self.model_combo.setItemText(1, QCoreApplication.translate("MainWindow", u"4o", None))
 
         self.temp_vbox.setPrefix(QCoreApplication.translate("MainWindow", u" Temp = ", None))
         self.topp_vbox.setPrefix(QCoreApplication.translate("MainWindow", u" Top_P = ", None))
@@ -497,7 +490,6 @@ class Ui_MainWindow(object):
         self.pin_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt;\">\u7a97\u4f53\u7f6e\u9876</span></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.pin_btn.setText("")
-        self.predicted_token_disp.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.actual_token_disp.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.sum_token_disp.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.system_edit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"\u8f93\u5165\u80cc\u666f\u4fe1\u606f,Enter\u6362\u884c,Ctrl+\u2193\u5c55\u5f00/\u6536\u7f29\u8f93\u5165\u6846", None))

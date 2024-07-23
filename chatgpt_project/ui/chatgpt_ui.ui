@@ -131,7 +131,7 @@ border-radius:4px;</string>
          </item>
          <item>
           <property name="text">
-           <string>3.5-16K</string>
+           <string>4o</string>
           </property>
          </item>
         </widget>
@@ -394,7 +394,7 @@ background-color: rgb(105,158,105)
       <property name="styleSheet">
        <string notr="true">border:0px;</string>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,2,2">
+      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,2">
        <property name="spacing">
         <number>5</number>
        </property>
@@ -410,18 +410,6 @@ background-color: rgb(105,158,105)
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <item>
-        <widget class="QLabel" name="predicted_token_disp">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QLabel" name="actual_token_disp">
          <property name="font">
