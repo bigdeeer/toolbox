@@ -1,0 +1,4 @@
+QWidget[type='cell']
+{
+border:1px solid red
+}

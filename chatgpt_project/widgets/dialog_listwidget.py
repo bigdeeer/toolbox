@@ -6,8 +6,6 @@ from PySide6.QtWidgets import (
 
 from ui.dialog_ui import Ui_dialog_item
 from utility.STYLE_CSS import CSS_BEGIN
-# from src.util.STYLE_CSS import *  # 假设这里导入了应用程序中使用的所有CSS样式。
-# from src.windows.edit_window import EditWindow
 from func.format_func import markdown_to_html
 
 # 定义尺寸策略的常量。
@@ -30,17 +28,29 @@ class DialogListItemWidget(QWidget, Ui_dialog_item):
         """
         super().__init__()
         self.setupUi(self)
-        # 初始隐藏所有按钮。
-        for button in self.findChildren(QPushButton):
-            button: QPushButton
-            button.setProperty("style", "BUTTON_STYLE_HIDDEN")
+
+        # for button in self.findChildren(QPushButton):
+        #     button: QPushButton
+        #     button.setProperty("style", "BUTTON_STYLE_HIDDEN")
+        #
+        # self.setProperty('type', 'cell')
+        # self.style().unpolish(self)
+        # self.style().polish(self)
+        self.setStyleSheet("""
+                          background-color:rgb(50,50,50);
+                          border:1px solid rgb(128,128,128);
+                          border-radius:5px
+        """)
 
         # 设置各种UI元素的样式。
-        self.dialog_cell.setProperty("style", "DIALOG_CELL_STYLE")
-        self.label.setProperty("style", "LABEL_HIDDEN")
-        self.ht_cell.setProperty("style", "DIALOG_BOX_STYLE")
+        # self.dialog_cell.setProperty("style", "DIALOG_CELL_STYLE")
+        # self.label.setProperty("style", "LABEL_HIDDEN")
+        # self.ht_cell.setProperty("style", "DIALOG_BOX_STYLE")
 
         self.ht_cell.setReadOnly(True)
+        self.ht_cell.setStyleSheet("""
+                          border:0px
+        """)
         # 连接按钮点击信号。
         self.delete_cell_btn.clicked.connect(self.delete)
 
@@ -131,14 +141,14 @@ class DialogListItem(QListWidgetItem):
         """
         status = self.widget.pause_cell_btn.isChecked()
         self.dialog_obj['mask'] = not status
-        if status:
-            self.widget.dialog_cell.setProperty("style", "VBOX_STYLE")
-            self.widget.dialog_cell.style().unpolish(self.widget.dialog_cell)
-            self.widget.dialog_cell.style().polish(self.widget.dialog_cell)
-        else:
-            self.widget.dialog_cell.setProperty("style", "VBOX_STYLE_MASK")
-            self.widget.dialog_cell.style().unpolish(self.widget.dialog_cell)
-            self.widget.dialog_cell.style().polish(self.widget.dialog_cell)
+        # if status:
+        #     self.widget.dialog_cell.setProperty("style", "VBOX_STYLE")
+        #     self.widget.dialog_cell.style().unpolish(self.widget.dialog_cell)
+        #     self.widget.dialog_cell.style().polish(self.widget.dialog_cell)
+        # else:
+        #     self.widget.dialog_cell.setProperty("style", "VBOX_STYLE_MASK")
+        #     self.widget.dialog_cell.style().unpolish(self.widget.dialog_cell)
+        #     self.widget.dialog_cell.style().polish(self.widget.dialog_cell)
 
 
 class DialogList(QListWidget):
@@ -159,6 +169,13 @@ class DialogList(QListWidget):
         self.setEditTriggers(QListWidget.EditTrigger.NoEditTriggers)
 
         self.verticalScrollBar().setSingleStep(30)
+
+        self.setStyleSheet(
+            """
+            border:0px;
+            background-color:transparent;
+            """
+        )
 
     def add_item(self, dialog_obj):
         """

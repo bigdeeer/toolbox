@@ -9,10 +9,11 @@ class ThemeDefault(Enum):
     """
     定义一个表示深色主题的枚举类，包含各种界面元素的颜色属性。
     """
+    FORE_COLOR= 'rgb(230,230,230)'
 
     BORDER_COLOR = 'rgb(96, 96, 96)'  # 深灰色。
     DEFAULT_BG = 'rgb(54, 57, 63)'  # 深灰色。
-    CHECKED_BG = 'rgb(78, 81, 87)'  # 深灰色。
+    CHECKED_BG = 'rgb(178, 181, 187)'  # 深灰色。
     HOVER_BG = 'rgb(130, 153, 206)'  # 浅蓝色。
     PRESSED_BG = 'rgb(171, 105, 135)'  # 深紫色。
     MASK_CELL = 'rgb(150, 128, 124)'  # 深棕色。
