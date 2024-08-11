@@ -1,0 +1,12 @@
+QPushButton{
+    border: 1px solid --FORE_COLOR;
+}
+QPushButton:hover {
+    background-color: --HOVER_BG;
+}
+QPushButton:pressed {
+    background-color: --PRESSED_BG;
+}
+QPushButton:checked {
+    background-color: --CHECKED_BG;
+}
