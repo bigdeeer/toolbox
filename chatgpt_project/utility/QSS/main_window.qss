@@ -1,0 +1,115 @@
+QPlainTextEdit#input_edit[hold="yes"] {
+    background-color: rgb(170, 82, 82);
+    border: 1px solid --BORDER_COLOR;
+}
+
+QPlainTextEdit#input_edit[hold="no"] {
+    background-color: --DEFAULT_BG;
+    border: 1px solid --BORDER_COLOR;
+}
+
+/* 窗口样式 */
+QWidget {
+    background-color: --DEFAULT_BG;
+    border: 1px solid --BORDER_COLOR;
+}
+
+QWidget[style="DEFAULT_BOX_STYLE"],
+QLineEdit[style="DEFAULT_BOX_STYLE"],
+QPlainTextEdit[style="DEFAULT_BOX_STYLE"],
+QTextEdit[style="DEFAULT_BOX_STYLE"] {
+    border: 1px solid blue;
+    background-color: --DEFAULT_BG;
+    color: --CODE_COLOR;
+}
+
+
+/* 按钮样式 */
+QPushButton[style="BUTTON_STYLE"] {
+    background-color: --DEFAULT_BG;
+    border: 1px solid --BORDER_COLOR;
+    color: --CODE_BG;
+}
+QPushButton[style="BUTTON_STYLE"]:hover {
+    background-color: --HOVER_BG;
+}
+QPushButton[style="BUTTON_STYLE"]:pressed {
+    background-color: --PRESSED_BG;
+}
+QPushButton[style="BUTTON_STYLE"]:checked {
+    background-color: --CHECKED_BG;
+}
+
+/* 隐藏边框按钮样式 */
+QPushButton[style="BUTTON_STYLE_HIDDEN"] {
+    background-color: --DEFAULT_BG;
+    border: 0px;
+    color: white;
+}
+QPushButton:hover {
+    background-color: --HOVER_BG;
+}
+QPushButton:pressed {
+    background-color: --PRESSED_BG;
+}
+QPushButton:checked {
+    background-color: --CHECKED_BG;
+}
+
+/* 带边框的垂直盒子样式 */
+QWidget[style="VBOX_STYLE"]  {
+    background-color: --DEFAULT_BG;
+    border: 1px solid --BORDER_COLOR;
+    color: white;
+}
+
+/* 遮罩单元格样式 */
+QWidget[style="VBOX_STYLE_MASK"] {
+    background-color: --MASK_CELL;
+    border: 1px solid --BORDER_COLOR;
+    color: --CODE_BG;
+}
+
+/* 单元格样式 */
+QWidget#dialog_item[style="CELL_STYLE"] {
+    background-color: --DEFAULT_BG;
+    border: 1px solid --BORDER_COLOR;
+    color: white;
+    margin: 10px;
+}
+
+/* 标签样式 */
+QLabel[style="LABEL_STYLE"] {
+    background-color: transparent;
+    border: 1px solid --BORDER_COLOR;
+    color: --PRESSED_BG;
+}
+
+/* 隐藏边框的标签样式 */
+QLabel[style="LABEL_HIDDEN"] {
+    background-color: transparent;
+    border: 0px;
+    color: --PRESSED_BG;
+}
+
+/* 对话框样式 */
+QTextEdit[style="DIALOG_BOX_STYLE"]  {
+    background-color: rgb(50, 50, 50);
+    border: 1px solid --BORDER_COLOR;
+    color: --CODE_COLOR;
+}
+
+/* 对话框单元格样式 */
+QWidget[style="DIALOG_CELL_STYLE"]  {
+    background-color: rgb(50, 50, 50);
+    border: 1px solid --BORDER_COLOR;
+    color: --CODE_COLOR;
+}
+
+
+QListWidget {
+    background-color: --DEFAULT_BG;
+    border: 1px solid --BORDER_COLOR;
+    color: --CODE_COLOR;
+}
+
