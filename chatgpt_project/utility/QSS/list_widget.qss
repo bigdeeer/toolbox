@@ -1,0 +1,9 @@
+QListWidget
+{
+border:0px;
+}
+
+DialogListItemWidget
+{
+border:1px solid red
+}

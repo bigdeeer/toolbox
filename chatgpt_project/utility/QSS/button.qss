@@ -1,6 +1,7 @@
 QPushButton{
-    border: 1px solid --FORE_COLOR;
+border:1px solid --FORE_COLOR
 }
+
 QPushButton:hover {
     background-color: --HOVER_BG;
 }

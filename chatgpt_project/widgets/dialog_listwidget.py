@@ -34,13 +34,14 @@ class DialogListItemWidget(QWidget, Ui_dialog_item):
         #     button.setProperty("style", "BUTTON_STYLE_HIDDEN")
         #
         # self.setProperty('type', 'cell')
-        # self.style().unpolish(self)
-        # self.style().polish(self)
-        self.setStyleSheet("""
-                          background-color:rgb(50,50,50);
-                          border:1px solid rgb(128,128,128);
-                          border-radius:5px
-        """)
+        self.setObjectName('place')
+        self.style().unpolish(self)
+        self.style().polish(self)
+        # self.setStyleSheet("""
+        #                   background-color:rgb(50,50,50);
+        #                   border:1px solid rgb(128,128,128);
+        #                   border-radius:5px
+        # """)
 
         # 设置各种UI元素的样式。
         # self.dialog_cell.setProperty("style", "DIALOG_CELL_STYLE")
@@ -170,12 +171,13 @@ class DialogList(QListWidget):
 
         self.verticalScrollBar().setSingleStep(30)
 
-        self.setStyleSheet(
-            """
-            border:0px;
-            background-color:transparent;
-            """
-        )
+
+        # self.setStyleSheet(
+        #     """
+        #     border:0px;
+        #     background-color:transparent;
+        #     """
+        # )
 
     def add_item(self, dialog_obj):
         """

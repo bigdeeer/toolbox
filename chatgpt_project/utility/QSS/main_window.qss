@@ -1,4 +1,9 @@
 QWidget{
 background-color: --DEFAULT_BG;
-color: --FORE_COLOR
+color: --FORE_COLOR;
 }
+
+QPlainTextEdit,QLineEdit,QComboBox,QDoubleSpinBox{
+border:1px solid --FORE_COLOR;
+}
+

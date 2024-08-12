@@ -71,7 +71,7 @@
         <height>16777215</height>
        </size>
       </property>
-      <layout class="QVBoxLayout" name="menu_vlayout" stretch="0,0,0">
+      <layout class="QVBoxLayout" name="menu_vlayout" stretch="0,0">
        <property name="spacing">
         <number>5</number>
        </property>
@@ -88,15 +88,6 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QListWidget" name="dialog_names_list">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="new_dialog_btn">
          <property name="minimumSize">
           <size>
@@ -112,29 +103,22 @@
          </property>
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <pointsize>20</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>New dialog</string>
+          <string>+</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
+        <widget class="QListWidget" name="dialog_names_list">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
          </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
+        </widget>
        </item>
       </layout>
      </widget>
