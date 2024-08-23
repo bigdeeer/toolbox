@@ -1,59 +1,62 @@
+from http import HTTPStatus
+
+import dashscope
 from PySide6.QtCore import QThread, Signal
-from openai import OpenAI
-from openai.lib.azure import AzureOpenAI
+from dashscope import Generation
 
 with open('utility/api_key.txt', 'r', encoding='utf-8') as f:
-    azure_endpoint = f.readline().strip()
-    api_key = f.readline().strip()
+    dashscope.api_key = f.readline().strip()
 
-with open('utility/fee.txt', 'r', encoding='utf-8') as f:
-    total_fee = float(f.readline().strip())
+TOKEN_PRICE = {
+    "qwen-turbo": {'in': 0.002, 'out': 0.006},
+    "qwen-plus": {'in': 0.004, 'out': 0.012},
+    "qwen-max": {'in': 0.04, 'out': 0.12}
+}
 
 
-class GptWorker(QThread):
-    answerAvailable = Signal(str, list)  # 定义一个信号，用于传递结果
-    message = []
-    message_sys = ''
-    temperature = 0.1
-    top_p = 0.1
-    model = ''
+class LLMWorker(QThread):
+    dialogs = {}
+    answer_received = Signal(dict)
 
     def run(self):
-        answer_str, tokens = get_gpt_answer(self.message, self.message_sys, self.temperature, self.top_p,
-                                            self.model)  # 调用你的函数获取答案
-        self.answerAvailable.emit(answer_str, tokens)  # 发送信号
+        self.get_qwen_answer()  # 使用通义千问获取答案
 
+    def get_qwen_answer(self):
+        """ 获取通义千问的回答 """
 
-def get_gpt_answer(message, message_sys, temperature, top_p, model):
-    """ 获取GPT回答 """
-
-    if model.startswith("qwen"):  # 使用阿里的模型
-        client = OpenAI(
-            api_key="sk-16435c32fce6449abe78bd13bfad3f64",  # 如果您没有配置环境变量，请在此处用您的API Key进行替换
-            base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",  # 填写DashScope服务的base_url
+        response = Generation.call(
+            model=self.dialogs['model'],
+            messages=[self.dialogs['sys']] + self.dialogs['messages'],
+            temperature=self.dialogs['temp'],
+            top_p=self.dialogs['topp'],
+            top_k=self.dialogs['topk'],
+            enable_search=True,
+            result_format="message"
         )
-    else:  # 使用Azure的 openAI 模型
-        client = AzureOpenAI(
-            azure_endpoint=azure_endpoint,
-            api_key=api_key,
-            api_version="2023-05-15"
-        )
-    try:
-        full_message = [message_sys] + message
-        response = client.chat.completions.create(
-            model=model,
-            messages=full_message,
-            temperature=temperature,
-            top_p=top_p,
-            frequency_penalty=0,
-            presence_penalty=0,
-            stop=None
-        )
-        answer_str = response.choices[0].message.content
-        tokens = [response.usage.prompt_tokens, response.usage.completion_tokens]
 
-    except Exception as e:
-        answer_str = '请求回答时出现错误，错误内容为:\n' + str(e)
-        tokens = [0, 0]
-    return answer_str, tokens
+        if response.status_code == HTTPStatus.OK:
 
+            in_tokens = response.usage.input_tokens
+            out_tokens = response.usage.output_tokens
+
+            in_tokens_fee = in_tokens * TOKEN_PRICE[self.dialogs['model']]['in'] / 1000
+            out_tokens_fee = out_tokens * TOKEN_PRICE[self.dialogs['model']]['out'] / 1000
+            total = self.dialogs['fee'] + in_tokens_fee + out_tokens_fee
+
+            answer_obj = {
+                'answer': response.output.choices[0].message.content,
+                'success': True,
+                'in_tokens': in_tokens,
+                'out_tokens': out_tokens,
+                'in_tokens_fee': in_tokens_fee,
+                'out_tokens_fee': out_tokens_fee,
+                'fee': total
+            }
+
+        else:
+            answer_obj = {
+                'answer': response.message,
+                'success': False
+            }
+
+        self.answer_received.emit(answer_obj)

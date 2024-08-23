@@ -1,10 +1,8 @@
-BORDER_COLOR = 'rgb(96,96,96)'
-DEFAULT_BG = 'rgb(54,57,63)'
+from utility.style import color_template
 
-CODE_COLOR = 'rgb(192,192,192)'
-CODE_BG = 'rgb(41,44,46)'
-PRE_COLOR = 'rgb(238, 157, 56)'
-PRE_BG = 'rgb(73,68,57)'
+code_color = color_template.get_color('LIGHT','QSS')
+code_bg_color = color_template.get_color('DARK_CODE','QSS')
+border_color = color_template.get_color('LIGHT','QSS')
 
 CSS_BEGIN = f'''
 <!DOCTYPE html>
@@ -12,13 +10,13 @@ CSS_BEGIN = f'''
 <head>
     <style>
     code{{
-        color:{PRE_COLOR};
-        background-color: {PRE_BG};
+        color:{code_color};
+        background-color: {code_bg_color};
         font-family: JetBrains Mono,consolas;
     }}    
     pre{{
-        color:{CODE_COLOR};
-        background-color: {CODE_BG};
+        color:{code_color};
+        background-color: {code_bg_color};
         font-family: JetBrains Mono,consolas;
     }}
     .bp {{ color: rgb(255, 198, 0); }}   
@@ -40,7 +38,7 @@ CSS_BEGIN = f'''
 CELL_CSS_BEGIN = f'''
 <table border="0" cellspacing="0" cellpadding="10" style="margin-top:10px">
 <tr>
-<td style="border:1px solid {BORDER_COLOR}">
+<td style="border:1px solid {border_color}">
 <pre>
 '''
 CELL_CSS_END = "</pre></td></tr></table>"

@@ -1,0 +1,16 @@
+QListWidget#dialog_widget{
+border:0px;
+background-color:transparent;
+}
+
+QListWidget#dialog_list_widget{
+border:0px;
+background-color:transparent;
+color:--LIGHT;
+}
+
+QListWidget::item:selected
+{
+background-color:--LIGHT;
+color:black;
+}

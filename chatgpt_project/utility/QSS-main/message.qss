@@ -1,0 +1,22 @@
+QWidget#cell_title_layout{
+background-color:--GRAY;
+border-top-right-radius:5px;
+border-top-left-radius:5px;
+color:--LIGHT;
+}
+
+QWidget#ht_cell{
+background-color:--DARK_CELL;
+color:--LIGHT;
+}
+
+QWidget#ht_cell_frame{
+background-color:--DARK_CELL;
+border-bottom-right-radius:5px;
+border-bottom-left-radius:5px;
+border:1px solid --GRAY;
+}
+
+QTextEdit{
+border:0px;
+}

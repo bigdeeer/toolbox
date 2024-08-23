@@ -1,0 +1,41 @@
+LIGHT:
+  color: [215, 215, 215]
+  description: 浅灰色
+
+GRAY_LIGHT:
+  color: [178, 181, 187]
+  description: 被选中背景
+
+GRAY:
+  color: [100, 100, 100]
+  description: 中灰，标题栏
+
+DARK_CELL:
+  color: [55, 55, 55]
+  description: 75/255灰，用于对话消息背景
+
+DARK:
+  color: [65, 65, 65]
+  description: 85/255灰，用于窗体背景
+
+DARK_CODE:
+  color: [41, 44, 46]
+  description: 代码背景
+
+BLUE_LIGHT:
+  color: [130, 153, 206]
+  description: 浅蓝色
+BLUE:
+  color: [130, 153, 206]
+  description: 鼠标悬停背景
+
+RED:
+  color: [171, 105, 135]
+  description: 按下状态背景
+RED_DARK:
+  color: [150, 128, 124]
+  description: 被遮罩单元格
+
+ORANGE:
+  color: [238, 157, 56]
+  description: 预览颜色

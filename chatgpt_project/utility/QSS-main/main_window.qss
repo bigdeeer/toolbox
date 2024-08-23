@@ -1,0 +1,10 @@
+QWidget#titlebar_layout{
+    border-top-left-radius:6px;
+    border-top-right-radius:6px;
+    background-color:--GRAY;
+}
+QWidget#main_window{
+    border-bottom-right-radius:6px;
+    border-bottom-left-radius:6px;
+    background-color:--DARK;
+}

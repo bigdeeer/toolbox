@@ -1,0 +1,7 @@
+QComboBox,QLineEdit,QPlainTextEdit,QDoubleSpinBox
+{
+    background-color:transparent;
+    border:1px solid --LIGHT;
+    color:--LIGHT;
+    border-radius:4px
+}

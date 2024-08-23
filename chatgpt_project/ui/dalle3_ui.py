@@ -20,7 +20,7 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QComboBox, QDoubl
     QMainWindow, QPlainTextEdit, QPushButton, QSizePolicy,
     QSpacerItem, QVBoxLayout, QWidget)
 
-from widgets.dialog_listwidget import DialogList
+from chat_LLM.widgets.dialog_listwidget import DialogList
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):

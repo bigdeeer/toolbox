@@ -1,4 +1,0 @@
-QWidget{
-background-color: --DEFAULT_BG;
-color: --FORE_COLOR
-}

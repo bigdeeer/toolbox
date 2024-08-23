@@ -1,0 +1,17 @@
+QPushButton{
+    border: 1px solid --LIGHT;
+    border-radius:4px;
+    color:--LIGHT;
+    background-color:transparent;
+}
+QPushButton:hover {
+    background-color: --BLUE_LIGHT;
+}
+QPushButton:pressed {
+    background-color: --RED;
+}
+QPushButton:checked {
+    background-color: --GRAY_LIGHT;
+    color:--DARK;
+}
+

@@ -1,26 +1,8 @@
 # coding:utf-8
 import os
-from enum import Enum
 from string import Template
-
-
-
-class ThemeDefault(Enum):
-    """
-    定义一个表示深色主题的枚举类，包含各种界面元素的颜色属性。
-    """
-    FORE_COLOR= 'rgb(230,230,230)'
-
-    BORDER_COLOR = 'rgb(96, 96, 96)'  # 深灰色。
-    DEFAULT_BG = 'rgb(54, 57, 63)'  # 深灰色。
-    CHECKED_BG = 'rgb(178, 181, 187)'  # 深灰色。
-    HOVER_BG = 'rgb(130, 153, 206)'  # 浅蓝色。
-    PRESSED_BG = 'rgb(171, 105, 135)'  # 深紫色。
-    MASK_CELL = 'rgb(150, 128, 124)'  # 深棕色。
-    CODE_COLOR = 'rgb(192, 192, 192)'  # 浅灰色。
-    CODE_BG = 'rgb(41, 44, 46)'  # 深灰色。
-    PRE_COLOR = 'rgb(238, 157, 56)'  # 橙色。
-    PRE_BG = 'rgb(73, 68, 57)'  # 深棕色。
+import yaml
+from PySide6.QtGui import QColor
 
 
 class QssTemplate(Template):
@@ -32,72 +14,86 @@ class QssTemplate(Template):
     delimiter = '--'
 
 
-def apply_theme_color(qss: str):
-    """
-    将主题颜色应用到QSS样式字符串中。
+class ColorTemplate:
+    # 颜色字典
+    colors = {}
 
-    :param qss: 原始QSS样式字符串
-    :return: 替换颜色后的QSS样式字符串
-    """
-    template = QssTemplate(qss)
+    def __init__(self):
+        # 读取颜色字典
+        file_name = "color.yaml"
+        file_path = os.path.join(os.path.dirname(__file__), file_name)
+        with open(file_path, 'r', encoding='utf-8') as f:
+            self.colors = yaml.safe_load(f)
 
-    # 创建一个字典，将ThemeDefault枚举中的成员名映射到其对应的颜色值
+    def get_color(self, name, _type):
+        """获取颜色"""
+        color_obj = self.colors[name]
+
+        # 已经存在于缓存时直接读取
+        if _type in color_obj:
+            return color_obj[_type]
+
+        # 不存在时构筑
+        else:
+            [r, g, b] = color_obj['color']
+
+            if _type == 'QSS':
+                return f"rgb({r},{g},{b})"
+            elif _type == 'QT':
+                return QColor(r, g, b)
+
+
+def replace_color(qss_string):
+    """
+    替换字符串内的颜色
+    """
+    # 使用Qt Template功能
+    template = QssTemplate(qss_string)
+
+    # 创建一个映射字典
     mappings = {}
-    for name, member in ThemeDefault.__members__.items():
-        mappings[name] = member.value
+    for name, color_obj in color_template.colors.items():
+        mappings[name] = color_template.get_color(name, 'QSS')
 
-    # 使用字符串模板将颜色变量替换为实际颜色值
-    qss = template.substitute(mappings)
-
-    return qss
+    # 使用映射字典将颜色变量替换为实际颜色值
+    return template.substitute(mappings)
 
 
-def get_stylesheet(file: str):
-    """
-    从指定的QSS文件中读取样式表内容。
+class StyleSheet:
+    style = {}
 
-    :param file: QSS文件名
-    :return: QSS文件的内容字符串
-    """
-    if not file:
-        return
+    def __init__(self):
+        """ 加载QSS样式表 """
 
-    with open(file, 'r', encoding='utf-8') as f:
-        qss = f.read()
+        # 本文件目录
+        self.dir = os.path.dirname(os.path.abspath(__file__))
+        # 找到本目录下所有QSS开头的文件夹
+        for dir_name in os.listdir(self.dir):
+            if dir_name.startswith("QSS"):
 
-    # print(f"debug: get_stylesheet 获取qss样式文件成功")
-    return qss
+                # 加载QSS文件夹内的qss
+                self.load_qss(dir_name)
+
+    def load_qss(self, qss_name):
+        """加载某个类系的QSS"""
+
+        style = ""
+
+        # 遍历所有QSS文件夹内的qss文件
+        qss_dir = os.path.join(self.dir, qss_name)
+        for qss_file_name in os.listdir(qss_dir):
+            # 拼接qss文件路径
+            qss_file_path = os.path.join(qss_dir, qss_file_name)
+            # 读取
+            with open(qss_file_path, 'r', encoding='utf-8') as f:
+                current_style = f.read()
+                # 拼接到一起
+                style += current_style
+
+        # 替换颜色并存入字典
+        self.style[qss_name] = replace_color(style)
 
 
-def get_qss_path():
-    """
-    根据控件名获取其对应的QSS文件的路径。
-
-    :param widget_name: 控件名
-    :return: QSS文件的路径
-    """
-
-    # 定义的QSS文件列表，用于检查传入的控件名是否有效
-
-    file_dir = os.path.dirname(os.path.abspath(__file__))
-    qss_dir = os.path.join(file_dir, "QSS")
-    qss_file_paths = [os.path.join(qss_dir, f) for f in os.listdir(qss_dir)]
-    return qss_file_paths
-
-
-def load_stylesheet():
-    """ 加载QSS样式表 """
-
-    styles = ''
-
-    qss_files = get_qss_path()
-    for f in qss_files:
-        qss_str = get_stylesheet(f)
-        qss_str = apply_theme_color(qss_str)
-        styles += qss_str
-
-    # 如果样式表内容为空，则打印错误信息并返回
-    if not styles:
-        print(f"debug: 样式表为空, 样式设置失败。")
-        return ""
-    return styles
+# 实例化
+color_template = ColorTemplate()
+style_sheet = StyleSheet()
