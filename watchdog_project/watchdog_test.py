@@ -1,3 +1,6 @@
+import os
+import sys
+
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
@@ -12,6 +15,9 @@ class MyFileSystemEventHandler(FileSystemEventHandler):
 # Create an observer and attach the event handler
 observer = Observer()
 event_handler = MyFileSystemEventHandler()
+# get current using py env path
+site_packages_dir = os.path.join(sys.prefix, 'site-packages')
+print(site_packages_dir)
 observer.schedule(event_handler, path='D:/YoungWired_venv/Lib/', recursive=True)
 
 # Start the observer
