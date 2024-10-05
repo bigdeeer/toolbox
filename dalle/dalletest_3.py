@@ -21,10 +21,7 @@ result = client.images.generate(
     model="dall-e-3",  # the name of your DALL-E 3 deployment
     prompt=prompt,
     n=1,
-    # size='1024x1792',
-    # style='natural',
-    # quality='hd'
-
+    size='1024x1024',
 )
 
 image_url = json.loads(result.model_dump_json())['data'][0]['url']
